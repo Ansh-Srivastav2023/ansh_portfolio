@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansh Srivastav - Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom scrollbar to match the dark theme */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155; 
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden relative">
+
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-0 left-0 w-full h-[500px] bg-cyan-500/5 rounded-full blur-[100px] -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px] translate-y-1/2"></div>
+        <!-- <div class="absolute inset-0 opacity-20" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div> -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+    </div>
+
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent py-6 bg-transparent">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-tighter text-white flex items-center gap-2 group">
+                <!-- <i data-lucide="cpu" class="w-6 h-6 text-cyan-400 group-hover:rotate-180 transition-transform duration-700"></i> -->
+                <!-- <span>ANSH<span class="text-cyan-400">.VLSI</span></span> -->
+            </a>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="text-sm font-medium text-slate-400 hover:text-cyan-400 hover:-translate-y-1 transition-colors relative group">
+                    About
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#education" class="text-sm font-medium text-slate-400 hover:text-cyan-400 hover:-translate-y-1 transition-colors relative group">
+                    Education
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#skills" class="text-sm font-medium text-slate-400 hover:text-cyan-400 hover:-translate-y-1 transition-colors relative group">
+                    Skills
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#experience" class="text-sm font-medium text-slate-400 hover:text-cyan-400 hover:-translate-y-1 transition-colors relative group">
+                    Experience
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#projects" class="text-sm font-medium text-slate-400 hover:text-cyan-400 hover:-translate-y-1 transition-colors relative group">
+                    Projects
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="mailto: ansh.srivastav91709@gmail.com" class="px-4 py-2 text-sm font-medium text-slate-950 bg-cyan-400 rounded hover:bg-cyan-300 transition-colors">
+                    Contact Me
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-slate-950 border-b border-slate-800 p-6 flex flex-col gap-4 shadow-2xl">
+            <a href="#about" class="mobile-link text-slate-300 hover:text-cyan-400 block py-2">About</a>
+            <a href="#experience" class="mobile-link text-slate-300 hover:text-cyan-400 block py-2">Experience</a>
+            <a href="#projects" class="mobile-link text-slate-300 hover:text-cyan-400 block py-2">Projects</a>
+            <a href="#skills" class="mobile-link text-slate-300 hover:text-cyan-400 block py-2">Skills</a>
+            <a href="#education" class="mobile-link text-slate-300 hover:text-cyan-400 block py-2">Education</a>
+        </div>
+    </nav>
+
+    <main class="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20">
+        
+        <section id="about" class="min-h-[85vh] flex flex-col justify-center mb-20 relative">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-900/50 text-cyan-300 text-xs font-mono mb-2">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                        </span>
+                        Available for Roles in VLSI & Digital Design
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 leading-tight">
+                        Ansh <br />
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
+                            Srivastav
+                        </span>
+                    </h1>
+                    
+                    <p class="text-lg text-slate-400 max-w-lg leading-relaxed">
+                        Electronics Engineer specializing in <strong class="text-slate-200">Digital & Analog Circuit Design</strong>. 
+                        Creating the next generation of processors and integrated systems with Verilog, Vivado, and Cadence Virtuoso.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/ansh-srivastav-a34b8a2a0"
+                          target="_blank"
+                          rel="noreferrer"
+                          class="px-6 py-3 border border-slate-700 text-slate-300 font-semibold rounded
+                                  hover:border-cyan-500/50 hover:text-cyan-400 transition-colors
+                                  flex items-center gap-2">
+                          <i data-lucide="linkedin" class="w-4 h-4"></i>
+                          LinkedIn
+                        </a>
+
+                        <!-- GitHub -->
+                        <a href="https://github.com/Ansh-Srivastav2023"
+                          target="_blank"
+                          rel="noreferrer"
+                          class="px-6 py-3 border border-slate-700 text-slate-300 font-semibold rounded
+                                  hover:border-cyan-500/50 hover:text-cyan-400 transition-colors
+                                  flex items-center gap-2">
+                          <i data-lucide="github" class="w-4 h-4"></i>
+                          GitHub
+                        </a>
+
+                        <!-- Gmail -->
+                        <a href="mailto:ansh.srivastav91709@gmail.com"
+                          class="px-6 py-3 border border-slate-700 text-slate-300 font-semibold rounded
+                                  hover:border-cyan-500/50 hover:text-cyan-400 transition-colors
+                                  flex items-center gap-2">
+                          <i data-lucide="mail" class="w-4 h-4"></i>
+                          ansh.srivastav91709@gmail.com
+                        </a>
+
+                        <!-- Mobile -->
+                        <a 
+                          class="px-6 py-3 border border-slate-700 text-slate-300 font-semibold rounded
+                                  hover:border-cyan-500/50 hover:text-cyan-400 transition-colors
+                                  flex items-center gap-2">
+                          <i data-lucide="phone" class="w-4 h-4"></i>
+                          +919170900136
+                        </a>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2 flex justify-center relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+                    
+                    <div class="relative w-72 h-72 md:w-96 md:h-96 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 group">
+                        <img 
+                            src="WhatsApp Image 2026-01-01 at 3.44.12 PM.jpeg" 
+                            alt="Ansh Srivastav" 
+                            class="w-full h-full object-cover opacity-100 group-hover:opacity-100 transition-opacity"
+                        />
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-20 border-t border-slate-900">
+  <!-- <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-8 md:p-10"> -->
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+        <i data-lucide="award" class="text-purple-400"></i>
+        Education
+      </h2>
+
+      <!-- Decorative Icon -->
+      <div class="hidden md:block">
+        <i data-lucide="book-open" class="w-14 h-14 text-white-800"></i>
+      </div>
+    </div>
+
+    <!-- College -->
+    <div class="mb-10">
+      <h3 class="text-xl font-semibold text-cyan-100">
+        B.Tech in Electronics & Communication Engineering
+      </h3>
+
+      <p class="text-slate-400 mt-1">
+        Dr. B. R. Ambedkar National Institute of Technology, Jalandhar
+      </p>
+
+      <div class="mt-3 flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500">
+        <span>2023 – 2027</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="text-cyan-400">CGPA: 8.18 (Semester 4)</span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="h-px w-full bg-slate-800 mb-10"></div>
+
+    <!-- School -->
+    <div>
+      <h4 class="text-lg font-semibold text-cyan-100">
+        Senior Secondary & Secondary Education
+      </h4>
+
+      <p class="text-slate-400 mt-1">
+        St. Therese's School, Padrauna, Kushinagar, Uttar Pradesh
+      </p>
+
+      <div class="mt-3 flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500">
+        <span>ICSE Board</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="hidden sm:inline">2020 --></span>
+        <span class="text-cyan-400">Class X: 89%</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="hidden sm:inline">2022 --></span>
+        <span class="text-cyan-400">Class XII: 92.2%</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+        <!-- order-1 md:order-2 flex justify-center relative -->
+
+        <section id="skills" class="py-20">
+            <div class="flex items-center gap-3 mb-8 group">
+                <div class="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors">
+                    <i data-lucide="layers" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white tracking-tight relative">
+                    Technical Arsenal
+                    <span class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-cyan-500 to-transparent rounded-full"></span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-6 rounded-xl hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-slate-800 rounded-lg group-hover:bg-cyan-900/20 transition-colors">
+                            <i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-200">HDL & Design</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-red-500/50 hover:text-red-400 transition-colors cursor-default">Verilog</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-red-500/50 hover:text-red-400 transition-colors cursor-default">SystemVerilog</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-red-500/50 hover:text-red-400 transition-colors cursor-default">Digital Electronics</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-red-500/50 hover:text-red-400 transition-colors cursor-default">Analog ICs</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-red-500/50 hover:text-red-400 transition-colors cursor-default">Low Power VLSI</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-6 rounded-xl hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-slate-800 rounded-lg group-hover:bg-cyan-900/20 transition-colors">
+                            <i data-lucide="monitor" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-200">EDA Tools</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-yellow-500/50 hover:text-yellow-400 transition-colors cursor-default">Vivado</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-yellow-500/50 hover:text-yellow-400 transition-colors cursor-default">Cadence Virtuoso</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-yellow-500/50 hover:text-yellow-400 transition-colors cursor-default">GTKWave</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-yellow-500/50 hover:text-yellow-400 transition-colors cursor-default">Yosys</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-yellow-500/50 hover:text-yellow-400 transition-colors cursor-default">KiCad</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-yellow-500/50 hover:text-yellow-400 transition-colors cursor-default">TinkerCad</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-6 rounded-xl hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-slate-800 rounded-lg group-hover:bg-cyan-900/20 transition-colors">
+                            <i data-lucide="code" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-200">Languages</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-purple-500/50 hover:text-purple-400 transition-colors cursor-default">C/C++</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-purple-500/50 hover:text-purple-400 transition-colors cursor-default">Python</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-purple-500/50 hover:text-purple-400 transition-colors cursor-default">MATLAB</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-purple-500/50 hover:text-purple-400 transition-colors cursor-default">MySQL</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-purple-500/50 hover:text-purple-400 transition-colors cursor-default">TCL</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-purple-500/50 hover:text-purple-400 transition-colors cursor-default">Assembly</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-6 rounded-xl hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-slate-800 rounded-lg group-hover:bg-cyan-900/20 transition-colors">
+                            <i data-lucide="activity" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-200">Domains</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <!-- <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-cyan-500/50 hover:text-cyan-400 transition-colors cursor-default">Cybersecurity</span> -->
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-orange-500/50 hover:text-orange-400 transition-colors cursor-default">Linux</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-orange-500/50 hover:text-orange-400 transition-colors cursor-default">STA</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-orange-500/50 hover:text-orange-400 transition-colors cursor-default">Processor Design</span>
+                        <span class="px-3 py-1 text-sm bg-slate-800/80 text-slate-300 border border-slate-700 rounded-full hover:border-orange-500/50 hover:text-orange-400 transition-colors cursor-default">FPGA Prototyping</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-20">
+            <div class="flex items-center gap-3 mb-8 group">
+                <div class="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors">
+                    <i data-lucide="briefcase" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white tracking-tight relative">
+                    Professional Trajectory
+                    <span class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-cyan-500 to-transparent rounded-full"></span>
+                </h2>
+            </div>
+
+            <div class="max-w-3xl">
+                <div class="relative pl-8 border-l border-slate-800 hover:border-cyan-500/50 transition-colors pb-10 last:pb-0 group">
+                    <div class="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-slate-800 group-hover:bg-cyan-400 transition-colors ring-4 ring-slate-950"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                        <h3 class="text-lg font-bold text-white">Project Head (Drone R&D)</h3>
+                        <span class="text-sm font-mono text-cyan-400/80 bg-cyan-950/30 px-3 py-1 rounded-full border border-cyan-900/30 w-fit mt-2 sm:mt-0">
+                            June - September, 2025 
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-slate-400 font-medium">Agastya (Meity 'Swayaan' Project)</div>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="text-slate-400 text-sm flex items-start gap-2">
+                            <span class="mt-1.5 w-1 h-1 bg-cyan-500/50 rounded-full shrink-0"></span>
+                            Leading R&D for multipurpose agricultural drones.
+                        </li>
+                        <li class="text-slate-400 text-sm flex items-start gap-2">
+                            <span class="mt-1.5 w-1 h-1 bg-cyan-500/50 rounded-full shrink-0"></span>
+                            Responsible for project approval, management, and strategic execution.
+                        </li>
+                        <li class="text-slate-400 text-sm flex items-start gap-2">
+                            <span class="mt-1.5 w-1 h-1 bg-cyan-500/50 rounded-full shrink-0"></span>
+                            Overseeing integration of embedded systems for flight control.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relative pl-8 border-l border-slate-800 hover:border-cyan-500/50 transition-colors pb-10 last:pb-0 group">
+                    <div class="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-slate-800 group-hover:bg-cyan-400 transition-colors ring-4 ring-slate-950"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                        <h3 class="text-lg font-bold text-white">Cybersecurity Intern</h3>
+                        <span class="text-sm font-mono text-cyan-400/80 bg-cyan-950/30 px-3 py-1 rounded-full border border-cyan-900/30 w-fit mt-2 sm:mt-0">
+                            1.5 Months
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-slate-400 font-medium">CDAC - NOIDA (Remote)</div>
+                        <a href="https://ansh-srivastav-1.tiiny.site/" target="_blank" rel="noreferrer" class="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-purple-300 bg-purple-900/20 border border-purple-500/30 rounded-full hover:bg-purple-900/40 hover:border-purple-500/60 transition-colors">
+                            <i data-lucide="file-text" class="w-3 h-3"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="text-slate-400 text-sm flex items-start gap-2">
+                            <span class="mt-1.5 w-1 h-1 bg-cyan-500/50 rounded-full shrink-0"></span>
+                            Explored Cybersecurity, Encryption, and Penetration Testing methodologies.
+                        </li>
+                        <li class="text-slate-400 text-sm flex items-start gap-2">
+                            <span class="mt-1.5 w-1 h-1 bg-cyan-500/50 rounded-full shrink-0"></span>
+                            Utilized tools: Veracrypt, Nmap, Wireshark, MAGNET EDD, and Amass.
+                        </li>
+                        <li class="text-slate-400 text-sm flex items-start gap-2">
+                            <span class="mt-1.5 w-1 h-1 bg-cyan-500/50 rounded-full shrink-0"></span>
+                            Conducted data recovery and network vulnerability assessments.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-20">
+            <div class="flex items-center gap-3 mb-8 group">
+                <div class="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors">
+                    <i data-lucide="zap" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white tracking-tight relative">
+                    Featured Projects
+                    <span class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-cyan-500 to-transparent rounded-full"></span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="flex flex-col bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-xl overflow-hidden hover:border-cyan-500/40 transition-all duration-300 group relative h-full">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-700 group-hover:border-cyan-500/30 transition-colors">
+                                <i data-lucide="cpu" class="w-8 h-8 text-cyan-400 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">5-Stage Pipelined RISC-V Processor</h3>
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed flex-grow">
+                            Designed a 32-bit pipelined processor (RV32IMC) with separate Fetch, Decode, Execute, Memory, and Writeback stages. Integrated RISC-V GCC toolchain for C to Machine code conversion.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Verilog</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Yosys</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">GCC Toolchain</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Computer Architecture</span>
+                        </div>
+                        <a href="https://github.com/Ansh-Srivastav2023/5-Stage_32-Bit_Pipelined_RISCV_Processor" target="_blank" rel="noreferrer" class="w-full py-2 px-4 bg-slate-800 hover:bg-cyan-900/40 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-sm text-center text-slate-300 hover:text-cyan-300 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                            <span>View Project</span>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-xl overflow-hidden hover:border-cyan-500/40 transition-all duration-300 group relative h-full">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-700 group-hover:border-cyan-500/30 transition-colors">
+                                <i data-lucide="cpu" class="w-8 h-8 text-cyan-400 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">Two-Stage CMOS Op-Amp</h3>
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed flex-grow">
+                            Simulated a two-stage operational amplifier in Cadence Virtuoso. Achieved high gain and swing with differential input and common-source output stages. Verified via DC, AC, and transient analysis.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Cadence Virtuoso</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Analog Design</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">CMOS</span>
+                        </div>
+                        <a href="#" class="w-full py-2 px-4 bg-slate-800 hover:bg-cyan-900/40 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-sm text-center text-slate-300 hover:text-cyan-300 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                            <span>View Project</span>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-xl overflow-hidden hover:border-cyan-500/40 transition-all duration-300 group relative h-full">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-700 group-hover:border-cyan-500/30 transition-colors">
+                                <i data-lucide="cpu" class="w-8 h-8 text-cyan-400 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">FPGA UART Data Receiver</h3>
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed flex-grow">
+                            Engineered a UART receiver to interface with Bluetooth modules. Synthesized and deployed design on Basys3 FPGA to display incoming data.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Verilog</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Vivado</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">FPGA</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">UART</span>
+                        </div>
+                        <a href="https://github.com/Ansh-Srivastav2023/UART_Protocol" target="_blank" rel="noreferrer" class="w-full py-2 px-4 bg-slate-800 hover:bg-cyan-900/40 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-sm text-center text-slate-300 hover:text-cyan-300 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                            <span>View Project</span>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-xl overflow-hidden hover:border-cyan-500/40 transition-all duration-300 group relative h-full">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-700 group-hover:border-cyan-500/30 transition-colors">
+                                <i data-lucide="cpu" class="w-8 h-8 text-cyan-400 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">32-bit Single Cycle RISC-V</h3>
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed flex-grow">
+                            Developed and synthesized a single-cycle RISC-V processor targeting RV32I. Validated instruction decoding, ALU functionality, and register operations.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Verilog</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">GTKWave</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Digital Logic</span>
+                        </div>
+                        <a href="https://github.com/Ansh-Srivastav2023/Single_Cycle_32-Bit_RISC-V_Processor" target="_blank" rel="noreferrer" class="w-full py-2 px-4 bg-slate-800 hover:bg-cyan-900/40 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-sm text-center text-slate-300 hover:text-cyan-300 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                            <span>View Project</span>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-xl overflow-hidden hover:border-cyan-500/40 transition-all duration-300 group relative h-full">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-700 group-hover:border-cyan-500/30 transition-colors">
+                                <i data-lucide="cpu" class="w-8 h-8 text-cyan-400 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">FIFO Buffer (Sync/Async)</h3>
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed flex-grow">
+                            Created synthesizable Synchronous and Asynchronous FIFO buffers to manage data flow between clock domains. Handled overflow/underflow conditions robustly.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Verilog</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">System Verilog</span>
+                            <span class="text-xs font-mono text-cyan-200/70 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50">Memory Design</span>
+                        </div>
+                        <a href="https://github.com/Ansh-Srivastav2023/Asynchronous-FIFO_Buffer" target="_blank" rel="noreferrer" class="w-full py-2 px-4 bg-slate-800 hover:bg-cyan-900/40 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-sm text-center text-slate-300 hover:text-cyan-300 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                            <span>View Project</span>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        
+
+        <footer class="pt-20 pb-10 text-center border-t border-slate-900">
+            <div class="flex justify-center gap-8 mb-8">
+                <a href="https://github.com/Ansh-Srivastav2023" target="_blank" rel="noreferrer" class="p-3 bg-slate-900 rounded-full text-white-400 hover:text-white hover:bg-cyan-600 transition-all duration-300 hover:-translate-y-1">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ansh-srivastav-a34b8a2a0" target="_blank" rel="noreferrer" class="p-3 bg-slate-900 rounded-full text-white-400 hover:text-white hover:bg-cyan-600 transition-all duration-300 hover:-translate-y-1">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="mailto:ansh.srivastav91709@gmail.com" target="_blank" rel="noreferrer" class="p-3 bg-slate-900 rounded-full text-white-400 hover:text-white hover:bg-cyan-600 transition-all duration-300 hover:-translate-y-1">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+                <a href="tel:+919170900136" target="_blank" rel="noreferrer" class="p-3 bg-slate-900 rounded-full text-white-400 hover:text-white hover:bg-cyan-600 transition-all duration-300 hover:-translate-y-1">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                </a>
+            </div>
+            <p class="text-slate-600 text-sm">
+                © <span id="year"></span> Ansh Srivastav.
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Update Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-slate-950/90', 'backdrop-blur-md', 'border-slate-800', 'py-4');
+                navbar.classList.remove('bg-transparent', 'border-transparent', 'py-6');
+            } else {
+                navbar.classList.remove('bg-slate-950/90', 'backdrop-blur-md', 'border-slate-800', 'py-4');
+                navbar.classList.add('bg-transparent', 'border-transparent', 'py-6');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        let isMenuOpen = false;
+
+        btn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                menu.classList.remove('hidden');
+                // Change icon to X
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                // Change icon to Menu
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons(); // Re-render icon
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                menu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+    </script>
+</body>
+</html>
