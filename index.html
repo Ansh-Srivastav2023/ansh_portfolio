@@ -261,20 +261,31 @@
             text-decoration: none;
         }
         
-        .button:hover {
-            background-color: #e5e5e5;
-            transform: translateY(-2px);
-        }
-
+        /* Updated Outline Button with Spotlight & Gradient Border */
         .button.outline {
             background-color: transparent;
             color: #ffffff;
-            border: 1px solid #333;
+            border: 2px solid #333; /* Default visible border */
+            position: relative;
+            overflow: hidden;
+            /* Inner background spotlight */
+            background: radial-gradient(
+                200px circle at var(--mouse-x, 0) var(--mouse-y, 0), 
+                rgba(255, 255, 255, 0.05), 
+                transparent 100%
+            );
+            transition: all 0.3s ease;
         }
         
+        /* Colorful Gradient Border on Hover for Buttons */
         .button.outline:hover {
-            border-color: #ffffff;
-            background-color: transparent;
+            transform: translateY(-3px);
+            border-color: transparent;
+            background-image: linear-gradient(#050505, #050505), 
+                              linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
         }
         
         /* -------- GRADIENT BORDER BOX EFFECT -------- */
@@ -287,29 +298,69 @@
             
             padding: 30px;
             
-            /* Gradient Border Logic */
-            border: 2px solid transparent; /* Transparent border placeholder */
-            background-image: linear-gradient(#0f0f0f, #0f0f0f), /* Padding box (content bg) */
-                              linear-gradient(135deg, #374151, #374151); /* Border box (default border color) */
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
+            /* Transparent border placeholder */
+            border: 2px solid rgba(255, 255, 255, 0.08); 
             
-            transition: all 0.4s ease;
+            /* Prepare for spotlight effect in background */
+            background: 
+                radial-gradient(
+                    600px circle at var(--mouse-x, 0) var(--mouse-y, 0), 
+                    rgba(255, 255, 255, 0.06), 
+                    transparent 40%
+                ) #0f0f0f;
+            
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             display: flex;
             flex-direction: column;
             position: relative;
             height: 100%;
             overflow: hidden;
             box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            text-decoration: none; /* For link cards */
+            color: inherit; /* For link cards */
+            cursor: pointer;
         }
 
-        /* Hover State: The Gradient Activates */
+        /* Border Glow Effect - Pseudo Element */
+        .card::before, .skill-category::before, .contact-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            padding: 2px; /* Border thickness */
+            background: radial-gradient(
+                600px circle at var(--mouse-x, 0) var(--mouse-y, 0), 
+                rgba(255, 255, 255, 0.4), 
+                transparent 40%
+            ); 
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.4s ease;
+        }
+
+        /* Reveal border glow on hover */
+        .card:hover::before, .skill-category:hover::before, .contact-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Hover State: Slight Lift */
         .card:hover, .skill-category:hover, .contact-card:hover {
             transform: translateY(-8px);
             
-            /* Switch the border gradient to colorful */
+            /* Switch to Colorful Gradient Border */
+            border-color: transparent;
             background-image: linear-gradient(#0f0f0f, #0f0f0f), 
                               linear-gradient(135deg, #60a5fa, #c084fc, #f472b6); /* Blue -> Purple -> Pink */
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
                               
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8),
                         0 0 20px rgba(96, 165, 250, 0.1); /* Subtle blue glow */
@@ -490,7 +541,7 @@
             animation: blink-icon 2s infinite ease-in-out;
         }
         
-        .project-link-icon:hover {
+        .card:hover .project-link-icon {
             color: #ffffff;
             transform: scale(1.1);
             animation: none; /* Stop blinking on hover */
@@ -503,11 +554,13 @@
             margin-top: 30px;
         }
         
+        /* Contact Card as Link Styling */
         .contact-card {
             align-items: center;
             justify-content: center;
             text-align: center;
             aspect-ratio: 1/1;
+            cursor: pointer; /* Explicit pointer */
         }
         
         .contact-card-title {
@@ -517,10 +570,9 @@
             margin-bottom: 15px;
         }
         
-        .contact-icon-link {
+        .contact-icon-box {
             font-size: 32px;
             color: #ffffff;
-            text-decoration: none;
             transition: transform 0.3s, color 0.3s;
             display: flex;
             align-items: center;
@@ -531,7 +583,8 @@
             border-radius: 50%;
         }
         
-        .contact-card:hover .contact-icon-link {
+        /* Hover on Card affects Icon Box */
+        .contact-card:hover .contact-icon-box {
             background-color: #60a5fa;
             color: #ffffff;
             transform: scale(1.1);
@@ -767,7 +820,7 @@
                             <div style="margin-top: 35px;">
                                 <a href="#projects" class="button outline">View Projects</a>
                                 <a href="#contact" class="button outline">Contact Me</a>
-                                <a href="https://drive.google.com/file/d/19bNTuyp5q11ATliDQ3rZOr63BsQPhH5w/view?usp=sharing" class="button outline">Resume</a>
+                                <a href="https://drive.google.com/file/d/1M0uEYBEwJ-ihCgdiylxW21HervqpqvL7/view?usp=sharing" class="button outline">Resumé</a>
                             </div>
                         </div>
                         <div class="about-image">
@@ -861,15 +914,17 @@
                         </div>
                         
                         <div class="timeline-item">
-                            <div class="card timeline-card">
-                                <a href="https://ansh-srivastav-1.tiiny.site/" class="project-link-icon" title="View Certificate"><i class="fas fa-arrow-up-right-from-square"></i></a>
+                            <a href="https://ansh-srivastav-1.tiiny.site/" class="card timeline-card" target="_blank" aria-label="View Internship Certificate">
+                                <div class="project-link-icon" title="View Certificate">
+                                    <i class="fas fa-arrow-up-right-from-square"></i>
+                                </div>
                                 <div class="timeline-date">Summer 2024</div>
                                 <div class="timeline-title">Research Intern</div>
                                 <div class="timeline-subtitle">CDAC – NOIDA</div>
                                 <div class="card-description">
                                     Conducted research on Cybersecurity protocols and digital forensics. Utilized tools like Veracrypt, Nmap, and Wireshark for encryption analysis and network penetration testing.
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -884,7 +939,7 @@
                     </div>
                     
                     <div class="card-container">
-                        <div class="card">
+                        <a href="https://github.com/Ansh-Srivastav2023/5-Stage_32-Bit_Pipelined_RISCV_Processor" class="card" target="_blank">
                             <div class="card-title">5-Stage 32-bit Pipelined RISC-V Processor</div>
                             <div class="card-subtitle">Architecture</div>
                             <div class="card-description">Designed a fully functional 5-stage pipelined processor in Verilog. Implemented hazard detection, data forwarding, and branch prediction units for the RV32IMC instruction set.</div>
@@ -893,10 +948,12 @@
                                 <span class="tag">GTKWave</span>
                                 <span class="tag">Yosys</span>
                             </div>
-                            <a href="https://github.com/Ansh-Srivastav2023/5-Stage_32-Bit_Pipelined_RISCV_Processor" class="project-link-icon" title="View Repository"><i class="fab fa-github"></i></a>
-                        </div>
+                            <div class="project-link-icon" title="View Repository">
+                                <i class="fab fa-github"></i>
+                            </div>
+                        </a>
                         
-                        <div class="card">
+                        <a href="#" class="card" target="_blank">
                             <div class="card-title">Two-Stage CMOS Operational Amplifier</div>
                             <div class="card-subtitle">Analog Design</div>
                             <div class="card-description">Designed a high-gain two-stage Op-Amp in Cadence Virtuoso. Optimized for gain-bandwidth product and phase margin using Miller compensation techniques.</div>
@@ -904,10 +961,12 @@
                                 <span class="tag">Cadence Virtuoso</span>
                                 <span class="tag">Analog Layout</span>
                             </div>
-                            <a href="#" class="project-link-icon" title="View Schematics"><i class="fas fa-image"></i></a>
-                        </div>
+                            <div class="project-link-icon" title="View Schematics">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </a>
                         
-                        <div class="card">
+                        <a href="https://github.com/Ansh-Srivastav2023/UART_Protocol" class="card" target="_blank">
                             <div class="card-title">FPGA-based UART Receiver</div>
                             <div class="card-subtitle">Embedded Systems</div>
                             <div class="card-description">Engineered a robust UART receiver module to interface with Bluetooth peripherals. Synthesized the design on a Basys3 FPGA board for real-time data visualization.</div>
@@ -916,10 +975,12 @@
                                 <span class="tag">Vivado</span>
                                 <span class="tag">FPGA</span>
                             </div>
-                            <a href="https://github.com/Ansh-Srivastav2023/UART_Protocol" class="project-link-icon" title="View Project"><i class="fas fa-code"></i></a>
-                        </div>
+                            <div class="project-link-icon" title="View Project">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </a>
                         
-                        <div class="card">
+                        <a href="https://github.com/Ansh-Srivastav2023/Asynchronous-FIFO_Buffer" class="card" target="_blank">
                             <div class="card-title">Async FIFO Buffer</div>
                             <div class="card-subtitle">Digital Design</div>
                             <div class="card-description">Developed a robust Asynchronous FIFO buffer to handle clock domain crossing (CDC) issues, verified with a constrained random testbench.</div>
@@ -928,8 +989,10 @@
                                 <span class="tag">GTKWave</span>
                                 <span class="tag">CDC</span>
                             </div>
-                            <a href="https://github.com/Ansh-Srivastav2023/Asynchronous-FIFO_Buffer" class="project-link-icon" title="View Code"><i class="fas fa-code"></i></a>
-                        </div>
+                            <div class="project-link-icon" title="View Code">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </a>
                     </div>
                 </section>
                 
@@ -987,33 +1050,34 @@
                     </div>
                     
                     <div class="contact-grid">
-                        <div class="contact-card">
-                            <div class="contact-card-title">EMAIL</div>
-                            <a href="mailto:ansh.srivastav91709@gmail.com" class="contact-icon-link" aria-label="Email Me">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
                         
-                        <div class="contact-card">
-                            <div class="contact-card-title">PHONE</div>
-                            <a href="tel:+919170900136" class="contact-icon-link" aria-label="Call Me">
-                                <i class="fas fa-phone"></i>
-                            </a>
-                        </div>
-                        
-                        <div class="contact-card">
+                        <a href="https://github.com/Ansh-Srivastav2023" target="_blank" class="contact-card" aria-label="GitHub Profile">
                             <div class="contact-card-title">GITHUB</div>
-                            <a href="https://github.com/Ansh-Srivastav2023" target="_blank" class="contact-icon-link" aria-label="GitHub Profile">
+                            <div class="contact-icon-box">
                                 <i class="fab fa-github"></i>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                         
-                        <div class="contact-card">
+                        <a href="https://linkedin.com/in/ansh-srivastav-a34b8a2a0" target="_blank" class="contact-card" aria-label="Linkedin Profile">
                             <div class="contact-card-title">LINKEDIN</div>
-                            <a href="https://linkedin.com/in/ansh-srivastav-a34b8a2a0" target="_blank" class="contact-icon-link" aria-label="Linkedin Profile">
+                            <div class="contact-icon-box">
                                 <i class="fab fa-linkedin"></i>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
+
+                        <a href="mailto:ansh.srivastav91709@gmail.com" class="contact-card" aria-label="Email Me">
+                            <div class="contact-card-title">EMAIL</div>
+                            <div class="contact-icon-box">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </a>
+                        
+                        <a href="tel:+919170900136" class="contact-card" aria-label="Call Me">
+                            <div class="contact-card-title">PHONE</div>
+                            <div class="contact-icon-box">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                        </a>
                     </div>
                     
                     <div class="footer-info">
@@ -1101,6 +1165,19 @@
                     icon.classList.remove('fa-times');
                     icon.classList.add('fa-bars');
                 }
+            });
+
+            // Add Mousemove event listener to all cards and buttons for spotlight effect
+            const cards = document.querySelectorAll('.card, .skill-category, .contact-card, .button.outline');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
             });
         });
     </script>
