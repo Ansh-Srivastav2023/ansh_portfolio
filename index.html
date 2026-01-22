@@ -42,25 +42,26 @@
             top: 20px;
             left: 20px;
             z-index: 1000;
-            background-color: #1f2937;
+            background-color: #2e025e;
             border: none;
-            color: #ffffff;
+            color: #b6b5b5;
             font-size: 24px;
             padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.8);
         }
         
         /* Sidebar Styles */
         .sidebar {
             width: 280px;
-            background-color: #0a0a0a;
+            background-color: #0b003a;
             padding: 40px 30px;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
             border-right: 1px solid #1a1a1a;
+            border-top-right-radius: 50px;
             transition: transform 0.3s ease;
             z-index: 999;
             display: flex;
@@ -119,12 +120,12 @@
         }
         
         .nav-link:hover, .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.1);
             color: #ffffff;
         }
         
         .nav-link.active i {
-            color: #60a5fa;
+            color: #0173ff;
         }
         
         .nav-link i {
@@ -141,14 +142,14 @@
         }
         
         .social-icon {
-            color: #6b7280;
+            color: #d2d0d0;
             font-size: 20px;
             transition: color 0.3s, transform 0.2s;
             padding: 5px;
         }
         
         .social-icon:hover {
-            color: #ffffff;
+            color: #cf0000;
             transform: translateY(-2px);
         }
         
@@ -238,7 +239,7 @@
             width: 350px;
             height: 350px;
             padding: 10px;                 /* thickness of frame */
-            border-radius: 18px;
+            border-radius: 30px;
             background: #0b0f16;           /* dark card base */
 
             /* outer soft glow + edge */
@@ -252,7 +253,7 @@
             content: "";
             position: absolute;
             inset: 4px;
-            border-radius: 14px;
+            border-radius: 30px;
             border: 1px solid rgba(255,255,255,0.12);
             pointer-events: none;
         }
@@ -260,7 +261,7 @@
         .profile-img {
             width: 100%;
             height: 100%;
-            border-radius: 12px;
+            border-radius: 30px;
             object-fit:cover;
 
             box-shadow: inset 0 0 0 1px rgba(236, 13, 13, 0.05);
@@ -562,7 +563,7 @@
         
         .skill-item::before {
             content: '•';
-            color: #60a5fa;
+            color: #2802b2;
             margin-right: 10px;
         }
         
@@ -733,11 +734,18 @@
                 justify-content: center;
                 order: -1;
             }
+
+            /* --- FIXED IMAGE SIZING FOR MOBILE --- */
+            .profile-frame {
+                width: 280px; /* Reduced from 350px for mobile */
+                height: 280px;
+            }
             
             .profile-img {
-                width: 220px;
-                height: 220px;
+                width: 100%;  /* Fill the new frame size */
+                height: 100%;
             }
+            /* ------------------------------------- */
             
             .card-container, .contact-grid {
                 grid-template-columns: 1fr;
@@ -885,19 +893,18 @@
                             </a>
                         </div>
                         </div>
-                        
 
                         <!-- Image -->
-                        <div class="profile-frame">
-                        <img src="ansh_image.jpeg"
-                            alt="Ansh Srivastav"
-                            class="profile-img">
+                        <div class="about-image">
+                            <div class="profile-frame">
+                            <img src="ansh_image.jpeg"
+                                alt="Ansh Srivastav"
+                                class="profile-img">
+                            </div>
                         </div>
 
                     </div>
                     </section>
-
-
 
                 
                 <!-- Education Section -->
