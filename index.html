@@ -227,24 +227,62 @@
             flex-shrink: 0;
         }
         
+        .profile-frame {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            padding: 10px;                 /* thickness of frame */
+            border-radius: 18px;
+            background: #0b0f16;           /* dark card base */
+
+            /* outer soft glow + edge */
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.08),
+                0 20px 40px rgba(0,0,0,0.7);
+        }
+
+        /* inner subtle stroke */
+        .profile-frame::before {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            pointer-events: none;
+        }
+
         .profile-img {
-            width: 280px;
-            height: 280px;
-            border-radius: 24px;
-            object-fit: cover;
-            /* Gradient Border for Profile Image too */
-            border: 3px solid transparent;
-            background-image: linear-gradient(#050505, #050505), linear-gradient(135deg, #60a5fa, #c084fc);
-            background-origin: border-box;
-            background-clip: content-box, border-box;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit:cover;
+
+            box-shadow: inset 0 0 0 1px rgba(236, 13, 13, 0.05);
+
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        /* optional hover polish */
+        /* .profile-frame:hover {
+            transform: scale(1.03);
+        } */
+        /* .profile-frame:hover {
+            transform: scale(1.03);
+        } */
+
         
         /* Hover Zoom Effect */
-        .profile-img:hover {
+        .profile-frame {
+            transition:
+                transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.5s ease;
+        }
+
+        .profile-frame:hover {
             transform: scale(1.08);
             box-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
         }
+
         
         .button {
             background-color: #ffffff;
@@ -811,11 +849,11 @@
                 <section id="home" class="section">
                     <div class="about-content">
                         <div class="about-text">
-                            <h2 class="section-title">Hello, I'm Ansh</h2>
-                            <p class="section-subtitle" style = "font-weight:bolder; font-family:cursive;">ELECTRONICS ENGINEERING, KERNEL & HARDWARE ENTHUSIAST</p>
+                            <h2 class="section-title" style = "font-weight:bolder; font-size: 50px;">Hello, I'm Ansh</h2>
+                            <p class="section-subtitle" style = "font-weight:900; font-size: 28px;">ELECTRONICS ENGINEERING, KERNEL & HARDWARE ENTHUSIAST</p>
                             
-                            <p>I'm currently pursuing BTech in Electronics and Communication Engineering at Dr. B R Ambedkar National Institute of Technology, Jalandhar.</p>
-                            <p>I specialize in digital and analog circuit design with a strong command over industry-standard tools like Verilog, Vivado, and Cadence Virtuoso. My passion lies in bridging the gap between hardware and software through efficient processor design and FPGA implementation.</p>
+                            <p style = "font-size: 24px;">I'm currently pursuing BTech in Electronics and Communication Engineering at Dr. B R Ambedkar National Institute of Technology, Jalandhar.</p>
+                            <p style = "font-size: 24px;">I specialize in digital and analog circuit design with a strong command over industry-standard tools like Verilog, Vivado, and Cadence Virtuoso. My passion lies in bridging the gap between hardware and software through efficient processor design and FPGA implementation.</p>
                             
                             <div style="margin-top: 35px;">
                                 <a href="#projects" class="button outline">View Projects</a>
@@ -823,7 +861,7 @@
                                 <a href="https://drive.google.com/file/d/1M0uEYBEwJ-ihCgdiylxW21HervqpqvL7/view?usp=sharing" class="button outline">Resumé</a>
                             </div>
                         </div>
-                        <div class="about-image">
+                        <div class="profile-frame">
                             <img src="ansh_image.jpeg" alt="Ansh Srivastav" class="profile-img">
                             <!-- <img src="tiwari.jpeg" alt="Ansh Srivastav" class="profile-img"> -->
                         </div>
@@ -939,6 +977,36 @@
                     </div>
                     
                     <div class="card-container">
+
+                        <a href="https://github.com/Ansh-Srivastav2023/gpu" class="card" target="_blank">
+                            <div class="card-title">4-Lane SIMD GPU Architecture</div>
+                            <div class="card-subtitle">Architecture</div>
+                            <div class="card-description">Designed a 4-threaded SIMD GPU, capable of executing upto 17 different custom instructions, with integrated python based assembler. Designed to perform simple calculations such as ADD, SUB, MUL and DIV. Also performed a Cocotb based verification on the architecture.</div>
+                            <div class="card-tags">
+                                <span class="tag">Verilog (verilator)</span>
+                                <span class="tag">GTKWave</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">Cocotb</span>
+                            </div>
+                            <div class="project-link-icon" title="View Repository">
+                                <i class="fab fa-github"></i>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/Ansh-Srivastav2023/Asynchronous-FIFO_Buffer" class="card" target="_blank">
+                            <div class="card-title">Async FIFO Buffer</div>
+                            <div class="card-subtitle">Digital Design</div>
+                            <div class="card-description">Developed a robust Asynchronous FIFO buffer to handle clock domain crossing (CDC) issues, verified with a constrained random testbench.</div>
+                            <div class="card-tags">
+                                <span class="tag">Verilog</span>
+                                <span class="tag">GTKWave</span>
+                                <span class="tag">CDC</span>
+                            </div>
+                            <div class="project-link-icon" title="View Code">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </a>
+
                         <a href="https://github.com/Ansh-Srivastav2023/5-Stage_32-Bit_Pipelined_RISCV_Processor" class="card" target="_blank">
                             <div class="card-title">5-Stage 32-bit Pipelined RISC-V Processor</div>
                             <div class="card-subtitle">Architecture</div>
@@ -980,19 +1048,7 @@
                             </div>
                         </a>
                         
-                        <a href="https://github.com/Ansh-Srivastav2023/Asynchronous-FIFO_Buffer" class="card" target="_blank">
-                            <div class="card-title">Async FIFO Buffer</div>
-                            <div class="card-subtitle">Digital Design</div>
-                            <div class="card-description">Developed a robust Asynchronous FIFO buffer to handle clock domain crossing (CDC) issues, verified with a constrained random testbench.</div>
-                            <div class="card-tags">
-                                <span class="tag">Verilog</span>
-                                <span class="tag">GTKWave</span>
-                                <span class="tag">CDC</span>
-                            </div>
-                            <div class="project-link-icon" title="View Code">
-                                <i class="fas fa-code"></i>
-                            </div>
-                        </a>
+                        
                     </div>
                 </section>
                 
