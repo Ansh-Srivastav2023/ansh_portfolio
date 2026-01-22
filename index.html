@@ -181,12 +181,18 @@
         }
 
         #home {
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             margin-bottom: 0;
             padding-bottom: 0;
+            animation: fadeIn 0.9s ease-out;
+        }
+
+        @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
         }
         
         .section-title {
@@ -846,27 +852,53 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <!-- Home Section -->
-                <section id="home" class="section">
+                <section id="home" class="section home-section">
                     <div class="about-content">
+
+                        <!-- Text -->
                         <div class="about-text">
-                            <h2 class="section-title" style = "font-weight:bolder; font-size: 50px;">Hello, I'm Ansh</h2>
-                            <p class="section-subtitle" style = "font-weight:900; font-size: 24px;">ELECTRONICS ENGINEERING, KERNEL & HARDWARE ENTHUSIAST</p>
-                            
-                            <p style = "font-size: 20px;">I'm currently pursuing BTech in Electronics and Communication Engineering at Dr. B R Ambedkar National Institute of Technology, Jalandhar.</p>
-                            <p style = "font-size: 20px;">I specialize in digital and analog circuit design with a strong command over industry-standard tools like Verilog, Vivado, and Cadence Virtuoso. My passion lies in bridging the gap between hardware and software through efficient processor design and FPGA implementation.</p>
-                            
-                            <div style="margin-top: 35px;">
-                                <a href="#projects" class="button outline">View Projects</a>
-                                <a href="#contact" class="button outline">Contact Me</a>
-                                <a href="https://drive.google.com/file/d/1M0uEYBEwJ-ihCgdiylxW21HervqpqvL7/view?usp=sharing" class="button outline">Resumé</a>
-                            </div>
+                        <h1 class="about-title">Hello, I'm Ansh</h1>
+
+                        <h2 class="about-subtitle">
+                            Electronics Engineering, Kernel & Hardware Enthusiast
+                        </h2>
+
+                        <p class="about-paragraph">
+                            I'm currently pursuing B.Tech in Electronics and Communication Engineering
+                            at Dr. B. R. Ambedkar National Institute of Technology, Jalandhar.
+                        </p>
+
+                        <p class="about-paragraph">
+                            I specialize in digital and analog circuit design with strong command over
+                            industry-standard tools like Verilog, Vivado, and Cadence Virtuoso.
+                            My passion lies in bridging the gap between hardware and software through
+                            efficient processor design and FPGA implementation.
+                        </p>
+
+                        <div class="about-actions">
+                            <a href="#projects" class="button outline">View Projects</a>
+                            <a href="#contact" class="button outline">Contact Me</a>
+                            <a href="https://drive.google.com/file/d/1M0uEYBEwJ-ihCgdiylxW21HervqpqvL7/view?usp=sharing"
+                            target="_blank"
+                            class="button outline">
+                            Résumé
+                            </a>
                         </div>
+                        </div>
+                        
+
+                        <!-- Image -->
                         <div class="profile-frame">
-                            <img src="ansh_image.jpeg" alt="Ansh Srivastav" class="profile-img">
-                            <!-- <img src="tiwari.jpeg" alt="Ansh Srivastav" class="profile-img"> -->
+                        <img src="ansh_image.jpeg"
+                            alt="Ansh Srivastav"
+                            class="profile-img">
                         </div>
+
                     </div>
-                </section>
+                    </section>
+
+
+
                 
                 <!-- Education Section -->
                 <section id="education" class="section">
