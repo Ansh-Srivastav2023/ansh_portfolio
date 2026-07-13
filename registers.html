@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Armv8 / Armv9 Register Reference</title>
+
+    <style>
+        /* ----- CSS Variables (Light / Dark) ----- */
+        :root {
+            --bg: #f4f7fb;
+            --panel: #ffffff;
+            --text: #172033;
+            --muted: #617083;
+            --border: #d6deea;
+            --header: #0f2747;
+            --blue: #2563eb;
+            --green: #059669;
+            --orange: #ea580c;
+            --purple: #7c3aed;
+            --red: #dc2626;
+            --gray: #475569;
+            --teal: #0d9488;
+            --pink: #db2777;
+            --code-bg: #eef2ff;
+            --code-text: #1e1b4b;
+            --shadow: rgba(15, 23, 42, 0.08);
+            --table-header: #0f2747;
+            --table-header-text: #ffffff;
+            --table-border: var(--border);
+            --reg-gp: #2563eb;
+            --reg-special: #7c3aed;
+            --reg-simd: #059669;
+            --reg-system: #ea580c;
+            --reg-aapcs: #0d9488;
+            --reg-armv9: #dc2626;
+        }
+
+        body.dark {
+            --bg: #121212;
+            --panel: #1e1e2f;
+            --text: #e8e8f0;
+            --muted: #a0aec0;
+            --border: #2d3748;
+            --header: #b0c4de;
+            --blue: #4f8cff;
+            --green: #34d399;
+            --orange: #fb923c;
+            --purple: #a78bfa;
+            --red: #f87171;
+            --gray: #9ca3af;
+            --teal: #2dd4bf;
+            --pink: #f472b6;
+            --code-bg: #2d3748;
+            --code-text: #d1d5db;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --table-header: #1a2a4a;
+            --table-header-text: #f0f0f5;
+            --table-border: #2d3748;
+            --reg-gp: #60a5fa;
+            --reg-special: #a78bfa;
+            --reg-simd: #34d399;
+            --reg-system: #fb923c;
+            --reg-aapcs: #2dd4bf;
+            --reg-armv9: #f87171;
+        }
+
+        /* ----- Reset & Base ----- */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ----- Header ----- */
+        .page-header {
+            max-width: 1500px;
+            margin: 0 auto 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--header);
+            font-size: 30px;
+            transition: color 0.3s;
+        }
+
+        .theme-btn {
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            background: var(--panel);
+            color: var(--text);
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .theme-btn:hover {
+            background: var(--border);
+        }
+
+        .subtitle {
+            max-width: 1500px;
+            margin: 0 auto 24px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            transition: color 0.3s;
+        }
+        .subtitle strong {
+            color: var(--text);
+        }
+
+        /* ----- Toolbar ----- */
+        .toolbar {
+            max-width: 1500px;
+            margin: 0 auto 18px;
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 12px;
+        }
+
+        .toolbar input,
+        .toolbar select {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--panel);
+            color: var(--text);
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .toolbar input::placeholder {
+            color: var(--muted);
+        }
+
+        /* ----- Stats ----- */
+        .stats {
+            max-width: 1500px;
+            margin: 0 auto 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 13px;
+            color: var(--muted);
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .stat strong {
+            color: var(--text);
+        }
+
+        /* ----- Table ----- */
+        .table-wrap {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: auto;
+            box-shadow: 0 18px 45px var(--shadow);
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: collapse;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: var(--table-header);
+            color: var(--table-header-text);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        th,
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--table-border);
+            vertical-align: top;
+            text-align: left;
+            transition: border-color 0.3s;
+        }
+
+        th {
+            font-size: 12px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        td {
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+
+        /* ----- Code & Highlighting ----- */
+        code {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 12.5px;
+            white-space: nowrap;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .reg-name {
+            font-weight: 700;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 14px;
+        }
+
+        /* ----- Register Type Badges ----- */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: #fff;
+            white-space: nowrap;
+        }
+        .badge-gp {
+            background: var(--reg-gp);
+        }
+        .badge-special {
+            background: var(--reg-special);
+        }
+        .badge-simd {
+            background: var(--reg-simd);
+        }
+        .badge-system {
+            background: var(--reg-system);
+        }
+        .badge-aapcs {
+            background: var(--reg-aapcs);
+        }
+        .badge-armv9 {
+            background: var(--reg-armv9);
+        }
+
+        /* ----- Section Divider ----- */
+        .section-divider {
+            max-width: 1500px;
+            margin: 40px auto 20px;
+            border-top: 2px solid var(--border);
+            padding-top: 20px;
+            transition: border-color 0.3s;
+        }
+        .section-divider h2 {
+            margin: 0 0 6px 0;
+            color: var(--header);
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .section-divider p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        /* ----- Footer ----- */
+        .footer {
+            max-width: 1500px;
+            margin: 24px auto 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            transition: color 0.3s;
+        }
+        .footer strong {
+            color: var(--text);
+        }
+
+        /* ----- Responsive ----- */
+        @media (max-width: 900px) {
+            .toolbar {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .theme-btn {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <div class="page-header">
+        <h1>Armv8 &amp; Armv9 Register Reference</h1>
+        <button class="theme-btn" id="themeToggle">Light Mode</button>
+    </div>
+
+    <div class="subtitle">
+        <strong>Comprehensive guide</strong> to the AArch64 register file across Armv8-A and Armv9-A architectures.
+        Covers general-purpose, special, SIMD/FP, system registers, and AAPCS64 calling conventions.
+        <br />
+        <span style="color: var(--muted);">
+            <span class="badge badge-gp">GP</span> General Purpose &nbsp;|&nbsp;
+            <span class="badge badge-special">Special</span> SP / PC / LR / XZR &nbsp;|&nbsp;
+            <span class="badge badge-simd">SIMD/FP</span> Vector &amp; Floating-Point &nbsp;|&nbsp;
+            <span class="badge badge-system">System</span> PSTATE / ELx &nbsp;|&nbsp;
+            <span class="badge badge-aapcs">AAPCS64</span> Calling Convention &nbsp;|&nbsp;
+            <span class="badge badge-armv9">Armv9</span> New Features
+        </span>
+    </div>
+
+    <!-- ===== TOOLBAR ===== -->
+    <div class="toolbar">
+        <input id="searchBox" type="text" placeholder="Search register name, type, description, or usage..." />
+        <select id="typeFilter">
+            <option value="All">All register types</option>
+            <option value="General Purpose">General Purpose</option>
+            <option value="Special">Special</option>
+            <option value="SIMD/FP">SIMD / Floating-Point</option>
+            <option value="System">System</option>
+            <option value="AAPCS64">AAPCS64</option>
+            <option value="Armv9">Armv9 New</option>
+        </select>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <div class="stats" id="stats"></div>
+
+    <!-- ===== TABLE ===== -->
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:60px;">#</th>
+                    <th style="width:140px;">Register</th>
+                    <th style="width:100px;">Type</th>
+                    <th style="width:160px;">Width(s)</th>
+                    <th>Description</th>
+                    <th style="width:180px;">Usage / Notes</th>
+                </tr>
+            </thead>
+            <tbody id="registerBody"></tbody>
+        </table>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+        <strong>References:</strong> Arm Architecture Reference Manual Armv8-A (ARM DDI 0487) &amp; Armv9-A (ARM DDI 0608).
+        This is a learning-oriented summary; always consult the official manuals for complete architectural details,
+        encodings, and feature dependencies.
+    </div>
+
+    <script>
+        // ============================================================
+        //  DATA — Registers of Armv8 / Armv9
+        // ============================================================
+        const registers = [
+
+            // -------- GENERAL PURPOSE REGISTERS --------
+            {
+                id: 1,
+                name: "X0 – X30",
+                type: "General Purpose",
+                widths: "64-bit (X), 32-bit (W)",
+                description: "31 general-purpose registers (X0–X30). Wn accesses the lower 32 bits, zero-extended to 64 on read.",
+                usage: "X0–X7: argument / return registers (AAPCS64). X8–X15: temporary / indirect result. X16–X17: IP0/IP1 (intra-procedure scratch). X18: platform register (often reserved). X19–X28: callee-saved. X29: Frame Pointer (FP). X30: Link Register (LR)."
+            },
+            {
+                id: 2,
+                name: "XZR / WZR",
+                type: "Special",
+                widths: "64-bit (XZR), 32-bit (WZR)",
+                description: "Zero register — reads as 0, writes are discarded.",
+                usage: "Often used as a source (e.g., MOV Xd, XZR) or as a destination when the result is not needed (e.g., CMP). WZR is the 32-bit alias."
+            },
+            {
+                id: 3,
+                name: "SP (Stack Pointer)",
+                type: "Special",
+                widths: "64-bit (SP), 32-bit (WSP)",
+                description: "Stack pointer register. Can be used as a base register for load/store and as a source/destination in arithmetic.",
+                usage: "WSP is the 32-bit alias. Not all instructions can use SP; check architecture constraints. SP is banked by exception level (SP_EL0, SP_EL1, etc.)."
+            },
+            {
+                id: 4,
+                name: "PC (Program Counter)",
+                type: "Special",
+                widths: "64-bit",
+                description: "Program counter — holds the address of the current instruction. Not a general-purpose register; cannot be written directly.",
+                usage: "Readable via ADR, ADRP, or by branching. Modified only by branch instructions, exceptions, and returns (ERET)."
+            },
+            {
+                id: 5,
+                name: "LR (X30)",
+                type: "General Purpose",
+                widths: "64-bit (X30), 32-bit (W30)",
+                description: "Link Register — holds the return address for function calls. Also usable as a general-purpose register.",
+                usage: "Set by BL and BLR instructions. Function epilogues often use RET (which uses X30 by default). Callees must preserve X30 if they modify it."
+            },
+
+            // -------- SIMD / FLOATING-POINT REGISTERS --------
+            {
+                id: 6,
+                name: "V0 – V31",
+                type: "SIMD/FP",
+                widths: "128-bit (Q), 64-bit (D), 32-bit (S), 16-bit (H), 8-bit (B)",
+                description: "Advanced SIMD (NEON) and floating-point registers. Each Vn can be accessed in multiple widths.",
+                usage: "Qn: 128-bit (entire register). Dn: lower 64 bits. Sn: lower 32 bits. Hn: lower 16 bits. Bn: lower 8 bits. Used for FP arithmetic, SIMD operations, and crypto extensions."
+            },
+            {
+                id: 7,
+                name: "Q0 – Q31",
+                type: "SIMD/FP",
+                widths: "128-bit",
+                description: "Quadword view of the V registers — the full 128-bit SIMD register.",
+                usage: "Used for 128-bit SIMD operations (e.g., vector load/store, NEON). Qn is an alias for Vn."
+            },
+            {
+                id: 8,
+                name: "D0 – D31",
+                type: "SIMD/FP",
+                widths: "64-bit",
+                description: "Doubleword view — lower 64 bits of the V register. Also the primary double-precision FP register.",
+                usage: "Used for double-precision floating-point (FP64) and 64-bit SIMD operations. Dn is an alias for Vn<63:0>."
+            },
+            {
+                id: 9,
+                name: "S0 – S31",
+                type: "SIMD/FP",
+                widths: "32-bit",
+                description: "Singleword view — lower 32 bits of the V register. Primary single-precision FP register.",
+                usage: "Used for single-precision floating-point (FP32). Sn is an alias for Vn<31:0>."
+            },
+            {
+                id: 10,
+                name: "H0 – H31",
+                type: "SIMD/FP",
+                widths: "16-bit",
+                description: "Halfword view — lower 16 bits of the V register. Used for half-precision FP (FP16).",
+                usage: "Requires FEAT_FP16 or FEAT_SVE2. Hn is an alias for Vn<15:0>."
+            },
+            {
+                id: 11,
+                name: "B0 – B31",
+                type: "SIMD/FP",
+                widths: "8-bit",
+                description: "Byte view — lower 8 bits of the V register. Used for SIMD byte operations.",
+                usage: "Common in NEON integer operations. Bn is an alias for Vn<7:0>."
+            },
+
+            // -------- SYSTEM REGISTERS --------
+            {
+                id: 12,
+                name: "PSTATE",
+                type: "System",
+                widths: "64-bit (conceptual)",
+                description: "Processor state — a collection of flags and control bits. Not a single register but accessed via MSR/MRS.",
+                usage: "Includes NZCV (condition flags), DAIF (interrupt masks), EL (exception level), SS (software step), TCO (tag check override), and others."
+            },
+            {
+                id: 13,
+                name: "NZCV",
+                type: "System",
+                widths: "4 bits (part of PSTATE)",
+                description: "Condition flags: Negative, Zero, Carry, Overflow. Updated by arithmetic and comparison instructions.",
+                usage: "Used by conditional branches (B.cond), conditional selects (CSEL), and other conditional instructions. Can be read/written via MSR/MRS."
+            },
+            {
+                id: 14,
+                name: "DAIF",
+                type: "System",
+                widths: "4 bits (part of PSTATE)",
+                description: "Debug, Abort, IRQ, FIQ mask bits. Controls interrupt masking at the current exception level.",
+                usage: "Set to disable interrupts (e.g., MSR DAIFSet, MSR DAIFClr). Critical sections often mask IRQs/FIQs."
+            },
+            {
+                id: 15,
+                name: "ELR_ELx",
+                type: "System",
+                widths: "64-bit",
+                description: "Exception Link Register — holds the return address after an exception at ELx.",
+                usage: "ELR_EL1, ELR_EL2, ELR_EL3. Set by hardware on exception entry. Used by ERET to return. Must be preserved by exception handlers."
+            },
+            {
+                id: 16,
+                name: "SPSR_ELx",
+                type: "System",
+                widths: "64-bit (but only lower bits architecturally defined)",
+                description: "Saved Program Status Register — saves PSTATE on exception entry at ELx.",
+                usage: "SPSR_EL1, SPSR_EL2, SPSR_EL3. Restored by ERET. Contains the exception-level, condition flags, and interrupt masks before the exception."
+            },
+            {
+                id: 17,
+                name: "TTBR0_ELx / TTBR1_ELx",
+                type: "System",
+                widths: "64-bit",
+                description: "Translation Table Base Registers — hold the base address of the page tables for each address space.",
+                usage: "TTBR0_EL1 and TTBR1_EL1 for EL1&0 translation. Updated during context switches. Critical for virtual memory management."
+            },
+            {
+                id: 18,
+                name: "MAIR_ELx",
+                type: "System",
+                widths: "64-bit",
+                description: "Memory Attribute Indirection Register — defines the memory attributes for each AttrIndex used in page tables.",
+                usage: "MAIR_EL1, MAIR_EL2, MAIR_EL3. Configures cacheability, shareability, and memory types (Device, Normal, etc.)."
+            },
+            {
+                id: 19,
+                name: "CNTVCT_EL0",
+                type: "System",
+                widths: "64-bit",
+                description: "Counter-timer Virtual Count register — a 64-bit counter that increments at a fixed frequency.",
+                usage: "Read-only from EL0. Used for high-resolution timing, performance measurement, and delay loops. Accessed via MRS."
+            },
+            {
+                id: 20,
+                name: "TPIDR_EL0 / TPIDR_EL1",
+                type: "System",
+                widths: "64-bit",
+                description: "Thread Pointer ID registers — software-defined storage for thread-local data.",
+                usage: "TPIDR_EL0 is accessible from EL0; often holds the thread-local storage pointer. TPIDR_EL1 is for EL1 use (e.g., OS scheduler data)."
+            },
+
+            // -------- AAPCS64 (Calling Convention) --------
+            {
+                id: 21,
+                name: "X0 – X7 (Args / Return)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Argument and return registers. X0–X7 hold the first 8 integer/pointer arguments to a function.",
+                usage: "X0 also holds the return value (or X0–X1 for 128-bit returns). Callees must preserve X0–X7 if they need them beyond the call."
+            },
+            {
+                id: 22,
+                name: "X8 (Indirect Result)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Holds the address of an indirect result (e.g., when a function returns a large struct by reference).",
+                usage: "Set by the caller. The callee writes the result to the address in X8."
+            },
+            {
+                id: 23,
+                name: "X9 – X15 (Temps)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Temporary / caller-saved registers. May be clobbered by a function call.",
+                usage: "Caller must save them if needed after the call. Also used for indirect result, and as scratch registers."
+            },
+            {
+                id: 24,
+                name: "X16 – X17 (IP0 / IP1)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Intra-procedure call scratch registers. Used by veneers and PLT stubs.",
+                usage: "Not preserved across calls. X16 is often used as the target for BLR, X17 for adrp+add sequences."
+            },
+            {
+                id: 25,
+                name: "X18 (Platform Register)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Reserved for platform use. Often holds the TLS pointer or other OS-specific data.",
+                usage: "Not generally used by application code. On many platforms, it is reserved and must not be modified."
+            },
+            {
+                id: 26,
+                name: "X19 – X28 (Callee-saved)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Callee-saved registers. A function must preserve these if it modifies them.",
+                usage: "Typical usage: save to stack in prologue, restore in epilogue. Used for long-lived values across function calls."
+            },
+            {
+                id: 27,
+                name: "X29 (FP — Frame Pointer)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Frame Pointer — points to the current stack frame. Used for stack unwinding and debugging.",
+                usage: "Often forms a linked list of frames (X29 points to the previous frame's X29). Optional but recommended for debug."
+            },
+            {
+                id: 28,
+                name: "X30 (LR — Link Register)",
+                type: "AAPCS64",
+                widths: "64-bit",
+                description: "Holds the return address for the current function. Saved to stack if the function calls another.",
+                usage: "Set by BL/BLR. Must be preserved if the function makes a call (i.e., save to stack and restore)."
+            },
+
+            // -------- SIMD / FP Calling Convention (AAPCS64) --------
+            {
+                id: 29,
+                name: "V0 – V7 (FP Args / Return)",
+                type: "AAPCS64",
+                widths: "128-bit (Q)",
+                description: "Floating-point and SIMD argument and return registers. V0–V7 hold up to 8 FP/SIMD arguments.",
+                usage: "V0 holds the FP return value. Larger FP values use V0–V1 (e.g., 128-bit returns). V0–V7 are caller-saved."
+            },
+            {
+                id: 30,
+                name: "V8 – V15 (Callee-saved)",
+                type: "AAPCS64",
+                widths: "128-bit (Q)",
+                description: "Callee-saved SIMD/FP registers. The lower 64 bits (Dn) must be preserved; upper 64 bits may be clobbered.",
+                usage: "Functions that use V8–V15 must save and restore their lower 64 bits (D8–D15)."
+            },
+            {
+                id: 31,
+                name: "V16 – V31 (Temps)",
+                type: "AAPCS64",
+                widths: "128-bit (Q)",
+                description: "Temporary SIMD/FP registers. Caller-saved — may be clobbered by a function call.",
+                usage: "Freely used for scratch values, temporaries, and vector operations. No preservation required."
+            },
+
+            // -------- ARMv9 NEW FEATURES --------
+            {
+                id: 32,
+                name: "SVE Z0 – Z31",
+                type: "Armv9",
+                widths: "variable (up to 2048 bits, implementation-defined)",
+                description: "Scalable Vector Extension (SVE) vector registers. Each Z register holds a vector of VL bits (128–2048).",
+                usage: "Armv9 mandates SVE2 support. Used for scalable SIMD operations. Z0–Z31 are the full vector registers. Predicate registers (P0–P15) control active lanes."
+            },
+            {
+                id: 33,
+                name: "SVE P0 – P15",
+                type: "Armv9",
+                widths: "variable (VL bits / 8)",
+                description: "SVE predicate registers — hold boolean values (active/inactive) for each vector lane.",
+                usage: "Control which lanes are active in predicated SVE operations. Can be set via PTRUE, PTEST, and other predicate instructions."
+            },
+            {
+                id: 34,
+                name: "SVE FFR",
+                type: "Armv9",
+                widths: "variable (VL bits / 8)",
+                description: "First Fault Register — a special predicate that records the first faulting lane for fault-tolerant vector loads.",
+                usage: "Used with LDFF1 and related instructions for speculative vector loads with fault suppression."
+            },
+            {
+                id: 35,
+                name: "SME ZA0 – ZA7",
+                type: "Armv9",
+                widths: "variable (matrix tiles)",
+                description: "Scalable Matrix Extension (SME) ZA accumulator matrix tiles. ZA holds a 2D matrix of VLxVL bits.",
+                usage: "Armv9 SME extends SVE with matrix multiplication. ZA tiles are used for high-throughput matrix operations. Accessed via SME instructions like FMOPA, SMOPA, etc."
+            },
+            {
+                id: 36,
+                name: "GCS (Guarded Control Stack)",
+                type: "Armv9",
+                widths: "implementation-defined",
+                description: "Armv9 Guarded Control Stack — a new feature for control-flow integrity. Stores return addresses in a separate stack.",
+                usage: "Enforced by the GCSPR_ELx registers. Prevents return-oriented programming (ROP) attacks by validating return addresses against the GCS."
+            }
+        ];
+
+        // ============================================================
+        //  RENDER LOGIC
+        // ============================================================
+
+        const tbody = document.getElementById("registerBody");
+        const searchBox = document.getElementById("searchBox");
+        const typeFilter = document.getElementById("typeFilter");
+        const statsEl = document.getElementById("stats");
+
+        function escapeHtml(v) {
+            return String(v)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function getBadgeClass(type) {
+            switch (type) {
+                case "General Purpose":
+                    return "badge-gp";
+                case "Special":
+                    return "badge-special";
+                case "SIMD/FP":
+                    return "badge-simd";
+                case "System":
+                    return "badge-system";
+                case "AAPCS64":
+                    return "badge-aapcs";
+                case "Armv9":
+                    return "badge-armv9";
+                default:
+                    return "badge-gp";
+            }
+        }
+
+        function renderStats(filtered) {
+            const total = registers.length;
+            const visible = filtered.length;
+
+            const counts = {};
+            for (const r of registers) {
+                counts[r.type] = (counts[r.type] || 0) + 1;
+            }
+
+            const chips = [
+                `<span class="stat"><strong>${visible}</strong> shown / <strong>${total}</strong> total</span>`
+            ];
+
+            const order = ["General Purpose", "Special", "SIMD/FP", "System", "AAPCS64", "Armv9"];
+            for (const type of order) {
+                if (counts[type]) {
+                    chips.push(`<span class="stat">${type}: <strong>${counts[type]}</strong></span>`);
+                }
+            }
+
+            statsEl.innerHTML = chips.join("");
+        }
+
+        function renderTable() {
+            const query = searchBox.value.trim().toLowerCase();
+            const selectedType = typeFilter.value;
+
+            const filtered = registers.filter(r => {
+                const matchType = selectedType === "All" || r.type === selectedType;
+                const haystack = [r.name, r.type, r.widths, r.description, r.usage].join(" ").toLowerCase();
+                const matchSearch = !query || haystack.includes(query);
+                return matchType && matchSearch;
+            });
+
+            tbody.innerHTML = filtered.map(r => `
+                <tr>
+                    <td style="color:var(--muted); font-weight:700;">${r.id}</td>
+                    <td><span class="reg-name">${escapeHtml(r.name)}</span></td>
+                    <td><span class="badge ${getBadgeClass(r.type)}">${escapeHtml(r.type)}</span></td>
+                    <td><code>${escapeHtml(r.widths)}</code></td>
+                    <td>${escapeHtml(r.description)}</td>
+                    <td style="font-size:13px; color:var(--muted);">${escapeHtml(r.usage)}</td>
+                </tr>
+            `).join("");
+
+            renderStats(filtered);
+        }
+
+        // -------- Event Listeners --------
+        searchBox.addEventListener("input", renderTable);
+        typeFilter.addEventListener("change", renderTable);
+
+        // -------- Initial Render --------
+        renderTable();
+
+        // ============================================================
+        //  DARK / LIGHT MODE TOGGLE
+        // ============================================================
+        const themeBtn = document.getElementById("themeToggle");
+
+        let savedTheme = localStorage.getItem("regTheme") || "light";
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark");
+            themeBtn.textContent = "Dark Mode";
+        } else {
+            document.body.classList.remove("dark");
+            themeBtn.textContent = "Light Mode";
+        }
+
+        themeBtn.addEventListener("click", () => {
+            const isDark = document.body.classList.toggle("dark");
+            themeBtn.textContent = isDark ? "Dark Mode" : "Light Mode";
+            localStorage.setItem("regTheme", isDark ? "dark" : "light");
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top 100 Arm A-profile / A64 Instructions</title>
+
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #172033;
+      --muted: #617083;
+      --border: #d6deea;
+      --header: #0f2747;
+      --blue: #2563eb;
+      --green: #059669;
+      --orange: #ea580c;
+      --purple: #7c3aed;
+      --red: #dc2626;
+      --gray: #475569;
+      --code-bg: #eef2ff;
+      --code-text: #1e1b4b;
+      --shadow: rgba(15, 23, 42, 0.08);
+      --table-header: #0f2747;
+      --table-header-text: #fff;
+      --table-border: var(--border);
+    }
+
+    /* Dark theme overrides */
+    body.dark {
+      --bg: #121212;
+      --panel: #1e1e2f;
+      --text: #e8e8f0;
+      --muted: #a0aec0;
+      --border: #2d3748;
+      --header: #b0c4de;
+      --blue: #4f8cff;
+      --green: #34d399;
+      --orange: #fb923c;
+      --purple: #a78bfa;
+      --red: #f87171;
+      --gray: #9ca3af;
+      --code-bg: #2d3748;
+      --code-text: #d1d5db;
+      --shadow: rgba(0, 0, 0, 0.4);
+      --table-header: #1a2a4a;
+      --table-header-text: #f0f0f5;
+      --table-border: #2d3748;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      text-align: center;
+      color: var(--header);
+      font-size: 30px;
+      transition: color 0.3s;
+    }
+
+    .subtitle {
+      max-width: 1100px;
+      margin: 0 auto 20px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .toolbar {
+      max-width: 1500px;
+      margin: 0 auto 18px;
+      display: grid;
+      grid-template-columns: 1fr 220px 120px 120px;
+      gap: 12px;
+    }
+
+    input,
+    select,
+    button {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      background: var(--panel);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      border-color: var(--blue);
+    }
+
+    button.theme-toggle {
+      background: var(--panel);
+      color: var(--text);
+      border-color: var(--border);
+      font-weight: 600;
+    }
+
+    button.theme-toggle:hover {
+      background: var(--border);
+    }
+
+    .stats {
+      max-width: 1500px;
+      margin: 0 auto 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .table-wrap {
+      max-width: 1500px;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: auto;
+      box-shadow: 0 18px 45px var(--shadow);
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1300px;
+      border-collapse: collapse;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: var(--table-header);
+      color: var(--table-header-text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--table-border);
+      vertical-align: top;
+      text-align: left;
+      transition: border-color 0.3s;
+    }
+
+    th {
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    td {
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    code {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 12.5px;
+      white-space: nowrap;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .num {
+      width: 55px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .mnemonic {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+
+    .category {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .cat-integer {
+      background: var(--blue);
+    }
+
+    .cat-branch {
+      background: var(--purple);
+    }
+
+    .cat-memory {
+      background: var(--green);
+    }
+
+    .cat-atomic {
+      background: #0f766e;
+    }
+
+    .cat-system {
+      background: var(--orange);
+    }
+
+    .cat-fp {
+      background: #be123c;
+    }
+
+    .cat-simd {
+      background: #9333ea;
+    }
+
+    .cat-security {
+      background: var(--red);
+    }
+
+    .cat-sve {
+      background: #0369a1;
+    }
+
+    .cat-sme {
+      background: #6d28d9;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 12.5px;
+      transition: color 0.3s;
+    }
+
+    .footer {
+      max-width: 1500px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      transition: color 0.3s;
+    }
+
+    @media (max-width: 900px) {
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Top 100 Arm A-profile / A64 Instructions</h1>
+
+  <div class="subtitle">
+    Practical reference for important Armv8-A / Armv9-A AArch64 instructions.
+    Includes base integer, branch, memory, atomic, system, FP/SIMD, and selected Armv9-era security/vector features.
+    Some instructions require optional architectural extensions or privileged execution.
+  </div>
+
+  <div class="toolbar">
+    <input id="searchBox" type="text" placeholder="Search instruction, syntax, function, category, or example..." />
+    <select id="categoryFilter">
+      <option value="All">All categories</option>
+    </select>
+    <button onclick="resetFilters()">Reset</button>
+    <button id="themeToggle" class="theme-toggle">Light Mode</button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Instruction</th>
+          <th>Category</th>
+          <th>Common Syntax</th>
+          <th>Functionality</th>
+          <th>Example</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="instructionBody"></tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <strong>Notes:</strong>
+    This is a learning-oriented “top 100” list, not the complete A-profile ISA.
+    Many A64 mnemonics have several encodings, addressing modes, register widths, aliases, and extension-specific
+    variants.
+    Always check the official Arm A-profile A64 ISA reference for exact encodings, traps, feature dependencies, and
+    pseudocode.
+  </div>
+
+  <script>
+    const instructions = [
+      {
+        id: 1,
+        mnemonic: "ADD",
+        category: "Integer",
+        syntax: "ADD Xd, Xn, Xm",
+        functionality: "Adds two registers or a register and immediate. Does not update condition flags.",
+        example: "ADD X0, X1, X2",
+        notes: "X0 = X1 + X2. Use W registers for 32-bit operations."
+      },
+      {
+        id: 2,
+        mnemonic: "ADDS",
+        category: "Integer",
+        syntax: "ADDS Xd, Xn, Xm",
+        functionality: "Adds operands and updates NZCV condition flags.",
+        example: "ADDS X0, X1, #1",
+        notes: "Useful before conditional branches or conditional selects."
+      },
+      {
+        id: 3,
+        mnemonic: "SUB",
+        category: "Integer",
+        syntax: "SUB Xd, Xn, Xm",
+        functionality: "Subtracts a register or immediate from another register.",
+        example: "SUB X0, X1, X2",
+        notes: "X0 = X1 - X2."
+      },
+      {
+        id: 4,
+        mnemonic: "SUBS",
+        category: "Integer",
+        syntax: "SUBS Xd, Xn, Xm",
+        functionality: "Subtracts operands and updates NZCV condition flags.",
+        example: "SUBS X0, X0, #1",
+        notes: "CMP is an alias of SUBS when the destination is XZR or WZR."
+      },
+      {
+        id: 5,
+        mnemonic: "ADC",
+        category: "Integer",
+        syntax: "ADC Xd, Xn, Xm",
+        functionality: "Adds two registers plus the carry flag.",
+        example: "ADC X0, X1, X2",
+        notes: "Used in multi-precision arithmetic."
+      },
+      {
+        id: 6,
+        mnemonic: "SBC",
+        category: "Integer",
+        syntax: "SBC Xd, Xn, Xm",
+        functionality: "Subtracts a register and the inverse of the carry flag.",
+        example: "SBC X0, X1, X2",
+        notes: "Used in multi-word subtraction."
+      },
+      {
+        id: 7,
+        mnemonic: "MADD",
+        category: "Integer",
+        syntax: "MADD Xd, Xn, Xm, Xa",
+        functionality: "Multiplies two registers and adds an accumulator.",
+        example: "MADD X0, X1, X2, X3",
+        notes: "X0 = X3 + X1 * X2."
+      },
+      {
+        id: 8,
+        mnemonic: "MSUB",
+        category: "Integer",
+        syntax: "MSUB Xd, Xn, Xm, Xa",
+        functionality: "Multiplies two registers and subtracts the product from an accumulator.",
+        example: "MSUB X0, X1, X2, X3",
+        notes: "X0 = X3 - X1 * X2."
+      },
+      {
+        id: 9,
+        mnemonic: "MUL",
+        category: "Integer",
+        syntax: "MUL Xd, Xn, Xm",
+        functionality: "Multiplies two registers.",
+        example: "MUL X0, X1, X2",
+        notes: "Alias of MADD with the accumulator as XZR/WZR."
+      },
+      {
+        id: 10,
+        mnemonic: "SMADDL",
+        category: "Integer",
+        syntax: "SMADDL Xd, Wn, Wm, Xa",
+        functionality: "Signed 32-bit multiply, widen to 64-bit, then add 64-bit accumulator.",
+        example: "SMADDL X0, W1, W2, X3",
+        notes: "Common for mixed 32-bit by 64-bit arithmetic."
+      },
+      {
+        id: 11,
+        mnemonic: "SDIV",
+        category: "Integer",
+        syntax: "SDIV Xd, Xn, Xm",
+        functionality: "Signed integer division.",
+        example: "SDIV X0, X1, X2",
+        notes: "Division by zero returns zero architecturally."
+      },
+      {
+        id: 12,
+        mnemonic: "UDIV",
+        category: "Integer",
+        syntax: "UDIV Xd, Xn, Xm",
+        functionality: "Unsigned integer division.",
+        example: "UDIV X0, X1, X2",
+        notes: "Use for unsigned C-style integer division."
+      },
+      {
+        id: 13,
+        mnemonic: "AND",
+        category: "Integer",
+        syntax: "AND Xd, Xn, Xm",
+        functionality: "Bitwise AND.",
+        example: "AND X0, X1, X2",
+        notes: "Also supports logical immediates."
+      },
+      {
+        id: 14,
+        mnemonic: "ORR",
+        category: "Integer",
+        syntax: "ORR Xd, Xn, Xm",
+        functionality: "Bitwise OR.",
+        example: "ORR X0, X1, X2",
+        notes: "MOV register can be encoded as ORR with XZR/WZR."
+      },
+      {
+        id: 15,
+        mnemonic: "EOR",
+        category: "Integer",
+        syntax: "EOR Xd, Xn, Xm",
+        functionality: "Bitwise exclusive OR.",
+        example: "EOR X0, X1, X2",
+        notes: "Useful for toggling bits and XOR operations."
+      },
+      {
+        id: 16,
+        mnemonic: "BIC",
+        category: "Integer",
+        syntax: "BIC Xd, Xn, Xm",
+        functionality: "Bit clear. Computes Xn AND NOT Xm.",
+        example: "BIC X0, X1, X2",
+        notes: "Useful for clearing selected bits."
+      },
+      {
+        id: 17,
+        mnemonic: "CMP",
+        category: "Integer",
+        syntax: "CMP Xn, Xm",
+        functionality: "Compares two operands by subtracting and updating flags, discarding the result.",
+        example: "CMP X0, #0",
+        notes: "Alias of SUBS with destination XZR/WZR."
+      },
+      {
+        id: 18,
+        mnemonic: "TST",
+        category: "Integer",
+        syntax: "TST Xn, Xm",
+        functionality: "Tests selected bits by ANDing and updating flags, discarding the result.",
+        example: "TST X0, #0xff",
+        notes: "Alias of ANDS with destination XZR/WZR."
+      },
+      {
+        id: 19,
+        mnemonic: "MOV",
+        category: "Integer",
+        syntax: "MOV Xd, Xn",
+        functionality: "Moves a value between registers or loads certain immediate forms.",
+        example: "MOV X0, X1",
+        notes: "Assembler pseudo/alias using instructions such as ORR, MOVZ, MOVN, or MOVK."
+      },
+      {
+        id: 20,
+        mnemonic: "MOVZ",
+        category: "Integer",
+        syntax: "MOVZ Xd, #imm, LSL #shift",
+        functionality: "Moves a 16-bit immediate into a register and zeroes the remaining bits.",
+        example: "MOVZ X0, #0x1234, LSL #16",
+        notes: "Often combined with MOVK to build 64-bit constants."
+      },
+      {
+        id: 21,
+        mnemonic: "MOVK",
+        category: "Integer",
+        syntax: "MOVK Xd, #imm, LSL #shift",
+        functionality: "Moves a 16-bit immediate into part of a register while keeping other bits.",
+        example: "MOVK X0, #0x5678, LSL #32",
+        notes: "Used to patch pieces of a 64-bit constant."
+      },
+      {
+        id: 22,
+        mnemonic: "ADR",
+        category: "Integer",
+        syntax: "ADR Xd, label",
+        functionality: "Computes a PC-relative address near the current instruction.",
+        example: "ADR X0, message",
+        notes: "Common for position-independent code."
+      },
+      {
+        id: 23,
+        mnemonic: "ADRP",
+        category: "Integer",
+        syntax: "ADRP Xd, symbol",
+        functionality: "Computes a page-aligned PC-relative address.",
+        example: "ADRP X0, global_var",
+        notes: "Usually followed by ADD or LDR using a page offset."
+      },
+      {
+        id: 24,
+        mnemonic: "LSL",
+        category: "Integer",
+        syntax: "LSL Xd, Xn, #shift",
+        functionality: "Logical shift left.",
+        example: "LSL X0, X1, #3",
+        notes: "Often used for multiplication by powers of two."
+      },
+      {
+        id: 25,
+        mnemonic: "LSR",
+        category: "Integer",
+        syntax: "LSR Xd, Xn, #shift",
+        functionality: "Logical shift right, filling high bits with zero.",
+        example: "LSR X0, X1, #2",
+        notes: "Used for unsigned division by powers of two."
+      },
+      {
+        id: 26,
+        mnemonic: "ASR",
+        category: "Integer",
+        syntax: "ASR Xd, Xn, #shift",
+        functionality: "Arithmetic shift right, preserving the sign bit.",
+        example: "ASR X0, X1, #2",
+        notes: "Used for signed division-like shifting."
+      },
+      {
+        id: 27,
+        mnemonic: "UBFM",
+        category: "Integer",
+        syntax: "UBFM Xd, Xn, #immr, #imms",
+        functionality: "Unsigned bitfield move. Extracts or rotates a bitfield and zero-extends.",
+        example: "UBFM X0, X1, #8, #15",
+        notes: "Many aliases such as UBFX and LSL/LSR map to this instruction."
+      },
+      {
+        id: 28,
+        mnemonic: "SBFM",
+        category: "Integer",
+        syntax: "SBFM Xd, Xn, #immr, #imms",
+        functionality: "Signed bitfield move. Extracts a bitfield and sign-extends.",
+        example: "SBFM X0, X1, #0, #31",
+        notes: "Aliases include SBFX, SXTB, SXTH, and SXTW."
+      },
+      {
+        id: 29,
+        mnemonic: "EXTR",
+        category: "Integer",
+        syntax: "EXTR Xd, Xn, Xm, #lsb",
+        functionality: "Extracts bits from a concatenation of two registers.",
+        example: "EXTR X0, X1, X2, #8",
+        notes: "Useful for funnel shifts and multi-register shifts."
+      },
+      {
+        id: 30,
+        mnemonic: "CSEL",
+        category: "Integer",
+        syntax: "CSEL Xd, Xn, Xm, cond",
+        functionality: "Selects between two registers based on condition flags.",
+        example: "CSEL X0, X1, X2, EQ",
+        notes: "Often avoids a branch."
+      },
+      {
+        id: 31,
+        mnemonic: "CSINC",
+        category: "Integer",
+        syntax: "CSINC Xd, Xn, Xm, cond",
+        functionality: "Conditional select; if condition is false, selects Xm + 1.",
+        example: "CSINC X0, X1, X2, NE",
+        notes: "CSET is an alias using CSINC."
+      },
+      {
+        id: 32,
+        mnemonic: "CCMP",
+        category: "Integer",
+        syntax: "CCMP Xn, Xm, #nzcv, cond",
+        functionality: "Conditionally compares operands; otherwise writes an immediate NZCV value.",
+        example: "CCMP X0, #10, #0, EQ",
+        notes: "Used to combine multiple comparisons without branches."
+      },
+      {
+        id: 33,
+        mnemonic: "CLZ",
+        category: "Integer",
+        syntax: "CLZ Xd, Xn",
+        functionality: "Counts leading zero bits.",
+        example: "CLZ X0, X1",
+        notes: "Common in normalization, bit scans, and integer algorithms."
+      },
+      {
+        id: 34,
+        mnemonic: "REV",
+        category: "Integer",
+        syntax: "REV Xd, Xn",
+        functionality: "Reverses byte order in a register.",
+        example: "REV X0, X1",
+        notes: "Used for endian conversion."
+      },
+      {
+        id: 35,
+        mnemonic: "RBIT",
+        category: "Integer",
+        syntax: "RBIT Xd, Xn",
+        functionality: "Reverses bit order in a register.",
+        example: "RBIT X0, X1",
+        notes: "Useful in bit manipulation, crypto, and DSP-style code."
+      },
+      {
+        id: 36,
+        mnemonic: "B",
+        category: "Branch",
+        syntax: "B label",
+        functionality: "Unconditional branch to a PC-relative target.",
+        example: "B loop",
+        notes: "Used for jumps and loops."
+      },
+      {
+        id: 37,
+        mnemonic: "B.cond",
+        category: "Branch",
+        syntax: "B.EQ label",
+        functionality: "Conditional branch based on NZCV flags.",
+        example: "B.EQ done",
+        notes: "Common conditions include EQ, NE, LT, LE, GT, GE, CS, CC."
+      },
+      {
+        id: 38,
+        mnemonic: "BL",
+        category: "Branch",
+        syntax: "BL label",
+        functionality: "Branch with link. Calls a function and writes return address to X30/LR.",
+        example: "BL printf",
+        notes: "Standard function call instruction."
+      },
+      {
+        id: 39,
+        mnemonic: "BR",
+        category: "Branch",
+        syntax: "BR Xn",
+        functionality: "Branches to an address held in a register.",
+        example: "BR X16",
+        notes: "Used for indirect jumps, PLT stubs, and jump tables."
+      },
+      {
+        id: 40,
+        mnemonic: "BLR",
+        category: "Branch",
+        syntax: "BLR Xn",
+        functionality: "Indirect function call through a register.",
+        example: "BLR X16",
+        notes: "Writes return address to X30/LR."
+      },
+      {
+        id: 41,
+        mnemonic: "RET",
+        category: "Branch",
+        syntax: "RET Xn",
+        functionality: "Returns from a subroutine to an address in a register.",
+        example: "RET",
+        notes: "RET without operand means RET X30."
+      },
+      {
+        id: 42,
+        mnemonic: "CBZ",
+        category: "Branch",
+        syntax: "CBZ Xn, label",
+        functionality: "Compares a register with zero and branches if zero.",
+        example: "CBZ X0, is_zero",
+        notes: "Does not modify flags."
+      },
+      {
+        id: 43,
+        mnemonic: "CBNZ",
+        category: "Branch",
+        syntax: "CBNZ Xn, label",
+        functionality: "Compares a register with zero and branches if nonzero.",
+        example: "CBNZ X0, not_zero",
+        notes: "Does not modify flags."
+      },
+      {
+        id: 44,
+        mnemonic: "TBZ",
+        category: "Branch",
+        syntax: "TBZ Xn, #bit, label",
+        functionality: "Tests a bit and branches if that bit is zero.",
+        example: "TBZ X0, #3, bit_clear",
+        notes: "Useful for flags packed into a register."
+      },
+      {
+        id: 45,
+        mnemonic: "TBNZ",
+        category: "Branch",
+        syntax: "TBNZ Xn, #bit, label",
+        functionality: "Tests a bit and branches if that bit is one.",
+        example: "TBNZ X0, #3, bit_set",
+        notes: "Does not change condition flags."
+      },
+      {
+        id: 46,
+        mnemonic: "LDR",
+        category: "Memory",
+        syntax: "LDR Xt, [Xn, #offset]",
+        functionality: "Loads a register from memory.",
+        example: "LDR X0, [X1, #8]",
+        notes: "Has immediate, register-offset, literal, pre-index, and post-index forms."
+      },
+      {
+        id: 47,
+        mnemonic: "STR",
+        category: "Memory",
+        syntax: "STR Xt, [Xn, #offset]",
+        functionality: "Stores a register to memory.",
+        example: "STR X0, [X1, #8]",
+        notes: "Has several addressing modes."
+      },
+      {
+        id: 48,
+        mnemonic: "LDUR",
+        category: "Memory",
+        syntax: "LDUR Xt, [Xn, #simm]",
+        functionality: "Loads using an unscaled signed byte offset.",
+        example: "LDUR X0, [X1, #-8]",
+        notes: "Useful for negative or unscaled offsets."
+      },
+      {
+        id: 49,
+        mnemonic: "STUR",
+        category: "Memory",
+        syntax: "STUR Xt, [Xn, #simm]",
+        functionality: "Stores using an unscaled signed byte offset.",
+        example: "STUR X0, [X1, #-8]",
+        notes: "Often appears in stack-frame accesses."
+      },
+      {
+        id: 50,
+        mnemonic: "LDP",
+        category: "Memory",
+        syntax: "LDP Xt1, Xt2, [Xn], #offset",
+        functionality: "Loads a pair of registers from memory.",
+        example: "LDP X29, X30, [SP], #16",
+        notes: "Common in function epilogues."
+      },
+      {
+        id: 51,
+        mnemonic: "STP",
+        category: "Memory",
+        syntax: "STP Xt1, Xt2, [Xn, #offset]!",
+        functionality: "Stores a pair of registers to memory.",
+        example: "STP X29, X30, [SP, #-16]!",
+        notes: "Common in function prologues."
+      },
+      {
+        id: 52,
+        mnemonic: "LDRB",
+        category: "Memory",
+        syntax: "LDRB Wt, [Xn]",
+        functionality: "Loads an unsigned byte and zero-extends it into a W register.",
+        example: "LDRB W0, [X1]",
+        notes: "Used for char and byte-array loads."
+      },
+      {
+        id: 53,
+        mnemonic: "STRB",
+        category: "Memory",
+        syntax: "STRB Wt, [Xn]",
+        functionality: "Stores the low byte of a register to memory.",
+        example: "STRB W0, [X1]",
+        notes: "Used for byte stores."
+      },
+      {
+        id: 54,
+        mnemonic: "LDRH",
+        category: "Memory",
+        syntax: "LDRH Wt, [Xn, #offset]",
+        functionality: "Loads an unsigned halfword and zero-extends it.",
+        example: "LDRH W0, [X1, #2]",
+        notes: "Used for 16-bit loads."
+      },
+      {
+        id: 55,
+        mnemonic: "STRH",
+        category: "Memory",
+        syntax: "STRH Wt, [Xn, #offset]",
+        functionality: "Stores the low halfword of a register.",
+        example: "STRH W0, [X1, #2]",
+        notes: "Used for 16-bit stores."
+      },
+      {
+        id: 56,
+        mnemonic: "LDRSW",
+        category: "Memory",
+        syntax: "LDRSW Xt, [Xn]",
+        functionality: "Loads a 32-bit word and sign-extends it to 64 bits.",
+        example: "LDRSW X0, [X1]",
+        notes: "Common when loading signed int into a 64-bit register."
+      },
+      {
+        id: 57,
+        mnemonic: "PRFM",
+        category: "Memory",
+        syntax: "PRFM operation, [Xn, #offset]",
+        functionality: "Issues a prefetch hint to the memory system.",
+        example: "PRFM PLDL1KEEP, [X0, #64]",
+        notes: "Performance hint; does not architecturally change program result."
+      },
+      {
+        id: 58,
+        mnemonic: "LDAR",
+        category: "Memory",
+        syntax: "LDAR Wt, [Xn]",
+        functionality: "Load-acquire. Loads memory with acquire ordering.",
+        example: "LDAR W0, [X1]",
+        notes: "Used in lock-free synchronization."
+      },
+      {
+        id: 59,
+        mnemonic: "STLR",
+        category: "Memory",
+        syntax: "STLR Wt, [Xn]",
+        functionality: "Store-release. Stores memory with release ordering.",
+        example: "STLR W0, [X1]",
+        notes: "Used to publish data safely between threads."
+      },
+      {
+        id: 60,
+        mnemonic: "LDXR",
+        category: "Atomic",
+        syntax: "LDXR Wt, [Xn]",
+        functionality: "Exclusive load. Starts a load-exclusive/store-exclusive atomic sequence.",
+        example: "LDXR W0, [X1]",
+        notes: "Usually paired with STXR."
+      },
+      {
+        id: 61,
+        mnemonic: "STXR",
+        category: "Atomic",
+        syntax: "STXR Ws, Wt, [Xn]",
+        functionality: "Exclusive store. Stores only if the exclusive monitor permits it.",
+        example: "STXR W2, W0, [X1]",
+        notes: "Ws receives success/failure status."
+      },
+      {
+        id: 62,
+        mnemonic: "LDAXR",
+        category: "Atomic",
+        syntax: "LDAXR Wt, [Xn]",
+        functionality: "Exclusive load with acquire ordering.",
+        example: "LDAXR W0, [X1]",
+        notes: "Used in acquire-style lock operations."
+      },
+      {
+        id: 63,
+        mnemonic: "STLXR",
+        category: "Atomic",
+        syntax: "STLXR Ws, Wt, [Xn]",
+        functionality: "Exclusive store with release ordering.",
+        example: "STLXR W2, W0, [X1]",
+        notes: "Used in release-style lock operations."
+      },
+      {
+        id: 64,
+        mnemonic: "CAS",
+        category: "Atomic",
+        syntax: "CAS Ws, Wt, [Xn]",
+        functionality: "Compare-and-swap atomic operation.",
+        example: "CAS W0, W1, [X2]",
+        notes: "Requires Large System Extensions in many Armv8/Armv9 systems."
+      },
+      {
+        id: 65,
+        mnemonic: "LDADD",
+        category: "Atomic",
+        syntax: "LDADD Ws, Wt, [Xn]",
+        functionality: "Atomic add to memory and return the old memory value.",
+        example: "LDADD W0, W1, [X2]",
+        notes: "Useful for counters and atomic fetch-add operations."
+      },
+      {
+        id: 66,
+        mnemonic: "SWP",
+        category: "Atomic",
+        syntax: "SWP Ws, Wt, [Xn]",
+        functionality: "Atomically swaps a register value with memory.",
+        example: "SWP W0, W1, [X2]",
+        notes: "Useful for locks and synchronization primitives."
+      },
+      {
+        id: 67,
+        mnemonic: "MRS",
+        category: "System",
+        syntax: "MRS Xt, system_register",
+        functionality: "Reads a system register into a general-purpose register.",
+        example: "MRS X0, CNTVCT_EL0",
+        notes: "Access depends on exception level and system register permissions."
+      },
+      {
+        id: 68,
+        mnemonic: "MSR",
+        category: "System",
+        syntax: "MSR system_register, Xt",
+        functionality: "Writes a general-purpose register to a system register.",
+        example: "MSR TTBR0_EL1, X0",
+        notes: "Usually privileged; may trap depending on configuration."
+      },
+      {
+        id: 69,
+        mnemonic: "SVC",
+        category: "System",
+        syntax: "SVC #imm",
+        functionality: "Supervisor call exception, typically from EL0 to EL1.",
+        example: "SVC #0",
+        notes: "Used for OS system calls."
+      },
+      {
+        id: 70,
+        mnemonic: "HVC",
+        category: "System",
+        syntax: "HVC #imm",
+        functionality: "Hypervisor call exception.",
+        example: "HVC #0",
+        notes: "Used to call EL2 hypervisor services."
+      },
+      {
+        id: 71,
+        mnemonic: "SMC",
+        category: "System",
+        syntax: "SMC #imm",
+        functionality: "Secure monitor call exception.",
+        example: "SMC #0",
+        notes: "Used to call EL3 firmware or secure monitor services."
+      },
+      {
+        id: 72,
+        mnemonic: "ERET",
+        category: "System",
+        syntax: "ERET",
+        functionality: "Exception return.",
+        example: "ERET",
+        notes: "Restores PSTATE and returns to address in ELR_ELx."
+      },
+      {
+        id: 73,
+        mnemonic: "BRK",
+        category: "System",
+        syntax: "BRK #imm",
+        functionality: "Breakpoint exception.",
+        example: "BRK #0",
+        notes: "Used by debuggers and crash traps."
+      },
+      {
+        id: 74,
+        mnemonic: "NOP",
+        category: "System",
+        syntax: "NOP",
+        functionality: "No operation.",
+        example: "NOP",
+        notes: "Used for alignment, patching, and timing padding."
+      },
+      {
+        id: 75,
+        mnemonic: "DMB",
+        category: "System",
+        syntax: "DMB option",
+        functionality: "Data memory barrier. Orders memory accesses before and after the barrier.",
+        example: "DMB ISH",
+        notes: "Important in SMP synchronization."
+      },
+      {
+        id: 76,
+        mnemonic: "DSB",
+        category: "System",
+        syntax: "DSB option",
+        functionality: "Data synchronization barrier. Waits for memory effects to complete.",
+        example: "DSB SY",
+        notes: "Stronger than DMB; common before system control changes."
+      },
+      {
+        id: 77,
+        mnemonic: "ISB",
+        category: "System",
+        syntax: "ISB",
+        functionality: "Instruction synchronization barrier. Flushes pipeline effects of context-changing operations.",
+        example: "ISB",
+        notes: "Common after changing system control registers."
+      },
+      {
+        id: 78,
+        mnemonic: "WFI",
+        category: "System",
+        syntax: "WFI",
+        functionality: "Wait for interrupt.",
+        example: "WFI",
+        notes: "Used in idle loops and low-power firmware."
+      },
+      {
+        id: 79,
+        mnemonic: "TLBI",
+        category: "System",
+        syntax: "TLBI operation",
+        functionality: "Performs TLB invalidation operations.",
+        example: "TLBI VMALLE1",
+        notes: "Usually privileged; used by OS/hypervisor memory managers."
+      },
+      {
+        id: 80,
+        mnemonic: "DC",
+        category: "System",
+        syntax: "DC operation, Xt",
+        functionality: "Data cache maintenance operation.",
+        example: "DC CVAC, X0",
+        notes: "Assembler alias of SYS for data-cache operations."
+      },
+      {
+        id: 81,
+        mnemonic: "IC",
+        category: "System",
+        syntax: "IC operation, Xt",
+        functionality: "Instruction cache maintenance operation.",
+        example: "IC IVAU, X0",
+        notes: "Used for self-modifying code and JIT code generation."
+      },
+      {
+        id: 82,
+        mnemonic: "AT",
+        category: "System",
+        syntax: "AT operation, Xt",
+        functionality: "Address translation instruction.",
+        example: "AT S1E1R, X0",
+        notes: "Performs translation checks and reports results in PAR_EL1."
+      },
+      {
+        id: 83,
+        mnemonic: "FADD",
+        category: "FP",
+        syntax: "FADD Dd, Dn, Dm",
+        functionality: "Floating-point addition.",
+        example: "FADD D0, D1, D2",
+        notes: "Also has scalar single-precision and vector forms."
+      },
+      {
+        id: 84,
+        mnemonic: "FSUB",
+        category: "FP",
+        syntax: "FSUB Dd, Dn, Dm",
+        functionality: "Floating-point subtraction.",
+        example: "FSUB D0, D1, D2",
+        notes: "Operates according to FPCR rounding and exception controls."
+      },
+      {
+        id: 85,
+        mnemonic: "FMUL",
+        category: "FP",
+        syntax: "FMUL Dd, Dn, Dm",
+        functionality: "Floating-point multiplication.",
+        example: "FMUL D0, D1, D2",
+        notes: "Also appears in SIMD/vector forms."
+      },
+      {
+        id: 86,
+        mnemonic: "FDIV",
+        category: "FP",
+        syntax: "FDIV Dd, Dn, Dm",
+        functionality: "Floating-point division.",
+        example: "FDIV D0, D1, D2",
+        notes: "Usually higher latency than add or multiply."
+      },
+      {
+        id: 87,
+        mnemonic: "FMADD",
+        category: "FP",
+        syntax: "FMADD Dd, Dn, Dm, Da",
+        functionality: "Fused floating-point multiply-add.",
+        example: "FMADD D0, D1, D2, D3",
+        notes: "Computes D0 = D3 + D1 * D2 with fused rounding."
+      },
+      {
+        id: 88,
+        mnemonic: "FCMP",
+        category: "FP",
+        syntax: "FCMP Dn, Dm",
+        functionality: "Compares floating-point values and updates condition flags.",
+        example: "FCMP D0, D1",
+        notes: "Used before conditional branches or FCSEL."
+      },
+      {
+        id: 89,
+        mnemonic: "FCSEL",
+        category: "FP",
+        syntax: "FCSEL Dd, Dn, Dm, cond",
+        functionality: "Floating-point conditional select.",
+        example: "FCSEL D0, D1, D2, EQ",
+        notes: "Avoids branches for FP min/max-like decisions."
+      },
+      {
+        id: 90,
+        mnemonic: "FCVT",
+        category: "FP",
+        syntax: "FCVT Sd, Dn",
+        functionality: "Converts between floating-point precisions.",
+        example: "FCVT S0, D1",
+        notes: "Can convert half, single, and double precision depending on feature support."
+      },
+      {
+        id: 91,
+        mnemonic: "ADDV",
+        category: "SIMD",
+        syntax: "ADDV Bd, Vn.16B",
+        functionality: "Adds vector elements across lanes and writes the reduction result.",
+        example: "ADDV B0, V1.16B",
+        notes: "Advanced SIMD horizontal reduction."
+      },
+      {
+        id: 92,
+        mnemonic: "DUP",
+        category: "SIMD",
+        syntax: "DUP Vd.4S, Wn",
+        functionality: "Duplicates a scalar value into all lanes of a vector register.",
+        example: "DUP V0.4S, W1",
+        notes: "Common for vectorizing scalar constants."
+      },
+      {
+        id: 93,
+        mnemonic: "PACIASP",
+        category: "Security",
+        syntax: "PACIASP",
+        functionality: "Signs the return address in LR using Pointer Authentication key A and SP as modifier.",
+        example: "PACIASP",
+        notes: "Used in function prologues when pointer authentication is enabled."
+      },
+      {
+        id: 94,
+        mnemonic: "AUTIASP",
+        category: "Security",
+        syntax: "AUTIASP",
+        functionality: "Authenticates the signed return address in LR using key A and SP as modifier.",
+        example: "AUTIASP",
+        notes: "Used in function epilogues before RET."
+      },
+      {
+        id: 95,
+        mnemonic: "BTI",
+        category: "Security",
+        syntax: "BTI target",
+        functionality: "Marks a valid indirect branch target for Branch Target Identification.",
+        example: "BTI c",
+        notes: "Helps mitigate jump-oriented and call-oriented attacks."
+      },
+      {
+        id: 96,
+        mnemonic: "IRG",
+        category: "Security",
+        syntax: "IRG Xd, Xn",
+        functionality: "Inserts a random allocation tag into a pointer for Memory Tagging Extension.",
+        example: "IRG X0, X1",
+        notes: "Requires MTE support."
+      },
+      {
+        id: 97,
+        mnemonic: "STG",
+        category: "Security",
+        syntax: "STG Xt, [Xn]",
+        functionality: "Stores an MTE allocation tag to memory.",
+        example: "STG X0, [X1]",
+        notes: "Used by memory allocators and sanitizers on MTE systems."
+      },
+      {
+        id: 98,
+        mnemonic: "PTRUE",
+        category: "SVE",
+        syntax: "PTRUE Pd.S",
+        functionality: "Initializes an SVE predicate register with active elements.",
+        example: "PTRUE P0.S",
+        notes: "Common first step in SVE predicated vector loops."
+      },
+      {
+        id: 99,
+        mnemonic: "LD1W",
+        category: "SVE",
+        syntax: "LD1W { Zd.S }, Pg/Z, [Xn]",
+        functionality: "Loads 32-bit words into an SVE vector under predicate control.",
+        example: "LD1W { Z0.S }, P0/Z, [X1]",
+        notes: "Inactive lanes are zeroed with /Z."
+      },
+      {
+        id: 100,
+        mnemonic: "SMSTART",
+        category: "SME",
+        syntax: "SMSTART option",
+        functionality: "Starts SME streaming mode or enables SME architectural state depending on option.",
+        example: "SMSTART SM",
+        notes: "Requires Scalable Matrix Extension support."
+      }
+    ];
+
+    const categoryClass = {
+      "Integer": "cat-integer",
+      "Branch": "cat-branch",
+      "Memory": "cat-memory",
+      "Atomic": "cat-atomic",
+      "System": "cat-system",
+      "FP": "cat-fp",
+      "SIMD": "cat-simd",
+      "Security": "cat-security",
+      "SVE": "cat-sve",
+      "SME": "cat-sme"
+    };
+
+    const body = document.getElementById("instructionBody");
+    const searchBox = document.getElementById("searchBox");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const stats = document.getElementById("stats");
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function fillCategories() {
+      const categories = [...new Set(instructions.map(item => item.category))].sort();
+
+      for (const category of categories) {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+      }
+    }
+
+    function renderStats(filtered) {
+      const total = instructions.length;
+      const visible = filtered.length;
+
+      const counts = {};
+      for (const item of instructions) {
+        counts[item.category] = (counts[item.category] || 0) + 1;
+      }
+
+      const chips = [
+        `<span class="stat"><strong>${visible}</strong> shown / <strong>${total}</strong> total</span>`
+      ];
+
+      Object.entries(counts)
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .forEach(([category, count]) => {
+          chips.push(`<span class="stat">${category}: <strong>${count}</strong></span>`);
+        });
+
+      stats.innerHTML = chips.join("");
+    }
+
+    function renderTable() {
+      const query = searchBox.value.trim().toLowerCase();
+      const selectedCategory = categoryFilter.value;
+
+      const filtered = instructions.filter(item => {
+        const matchesCategory =
+          selectedCategory === "All" || item.category === selectedCategory;
+
+        const haystack = [
+          item.id,
+          item.mnemonic,
+          item.category,
+          item.syntax,
+          item.functionality,
+          item.example,
+          item.notes
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = !query || haystack.includes(query);
+
+        return matchesCategory && matchesSearch;
+      });
+
+      body.innerHTML = filtered.map(item => `
+    <tr>
+      <td class="num">${item.id}</td>
+      <td class="mnemonic">${escapeHtml(item.mnemonic)}</td>
+      <td>
+        <span class="category ${categoryClass[item.category] || "cat-integer"}">
+          ${escapeHtml(item.category)}
+        </span>
+      </td>
+      <td><code>${escapeHtml(item.syntax)}</code></td>
+      <td>${escapeHtml(item.functionality)}</td>
+      <td><code>${escapeHtml(item.example)}</code></td>
+      <td class="note">${escapeHtml(item.notes)}</td>
+    </tr>
+  `).join("");
+
+      renderStats(filtered);
+    }
+
+    function resetFilters() {
+      searchBox.value = "";
+      categoryFilter.value = "All";
+      renderTable();
+    }
+
+    searchBox.addEventListener("input", renderTable);
+    categoryFilter.addEventListener("change", renderTable);
+
+    fillCategories();
+    renderTable();
+
+    // -------- Dark / Light Mode Toggle --------
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Check localStorage for saved preference
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark');
+      themeToggle.textContent = 'Dark Mode';
+    } else {
+      document.body.classList.remove('dark');
+      themeToggle.textContent = 'Light Mode';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark');
+      themeToggle.textContent = isDark ? 'Dark Mode' : 'Light Mode';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+
+</body>
+
+</html>
