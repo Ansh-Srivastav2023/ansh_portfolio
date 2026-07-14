@@ -14,7 +14,7 @@
         rel="stylesheet">
 
     <style>
-        /* ------- YOUR EXISTING STYLES ------- */
+        /* ------- LIGHT MODE STYLES ------- */
         * {
             margin: 0;
             padding: 0;
@@ -27,8 +27,8 @@
 
         body {
             font-family: 'Ubuntu Sans', sans-serif;
-            background-color: #050505;
-            color: #e0e0e0;
+            background-color: #f5f5f7;
+            color: #1a1a1a;
             overflow-x: hidden;
             line-height: 1.6;
         }
@@ -44,29 +44,30 @@
             top: 20px;
             left: 20px;
             z-index: 1000;
-            background-color: #2e025e;
+            background-color: #e0d6f5;
             border: none;
-            color: #b6b5b5;
+            color: #1a1a1a;
             font-size: 24px;
             padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
         }
 
         .sidebar {
             width: 280px;
-            background-color: #080029;
+            background-color: #f0edf7;
             padding: 40px 30px;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
-            border-right: 1px solid #1a1a1a;
+            border-right: 1px solid #d5d0e0;
             border-top-right-radius: 50px;
             transition: transform 0.3s ease;
             z-index: 999;
             display: flex;
             flex-direction: column;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.04);
         }
 
         .profile-section {
@@ -77,13 +78,13 @@
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 5px;
-            color: #ffffff;
+            color: #1a1a2e;
             letter-spacing: -0.5px;
         }
 
         .profile-title {
             font-size: 14px;
-            color: #9ca3af;
+            color: #4b5563;
             margin-bottom: 20px;
             line-height: 1.4;
         }
@@ -110,7 +111,7 @@
         }
 
         .nav-link {
-            color: #d1d5db;
+            color: #374151;
             text-decoration: none;
             font-size: 15px;
             display: flex;
@@ -123,12 +124,12 @@
 
         .nav-link:hover,
         .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
+            background-color: rgba(46, 2, 94, 0.08);
+            color: #1a1a2e;
         }
 
         .nav-link.active i {
-            color: #0173ff;
+            color: #4f46e5;
         }
 
         .nav-link i {
@@ -136,6 +137,11 @@
             width: 20px;
             text-align: center;
             transition: color 0.3s;
+            color: #4b5563;
+        }
+
+        .nav-link.active i {
+            color: #4f46e5;
         }
 
         .social-icons {
@@ -145,20 +151,20 @@
         }
 
         .social-icon {
-            color: #d2d0d0;
+            color: #4b5563;
             font-size: 20px;
             transition: color 0.3s, transform 0.2s;
             padding: 5px;
         }
 
         .social-icon:hover {
-            color: #cf0000;
+            color: #4f46e5;
             transform: translateY(-2px);
         }
 
         .coordinates {
             font-size: 11px;
-            color: #4b5563;
+            color: #9ca3af;
             margin-top: auto;
             padding-top: 20px;
             font-family: monospace;
@@ -209,14 +215,14 @@
             font-size: 42px;
             font-weight: 800;
             margin-bottom: 15px;
-            color: #ffffff;
+            color: #1a1a2e;
             letter-spacing: -1px;
             line-height: 1.2;
         }
 
         .section-subtitle {
             font-size: 18px;
-            color: #9ca3af;
+            color: #4b5563;
             margin-bottom: 50px;
             max-width: 600px;
             font-weight: 400;
@@ -236,55 +242,55 @@
         .about-text p {
             margin-bottom: 20px;
             font-size: 17px;
-            color: #d1d5db;
+            color: #2d2d3a;
         }
 
-        .about-image {
+        /* .about-image {
             flex-shrink: 0;
-        }
+        } */
 
         .profile-frame {
             position: relative;
             width: 350px;
             height: 350px;
-            padding: 10px;
-            border-radius: 30px;
-            background: #0b0f16;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08),
-                0 20px 40px rgba(0, 0, 0, 0.7);
+            /* padding: 5px; */
+            border-radius: 50px;
+            background: #ffffff;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06),
+                0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
         .profile-frame::before {
             content: "";
             position: absolute;
-            inset: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            /* inset: 10px; */
+            border-radius: 50px;
+            /* border: 1px solid rgba(0, 0, 0, 0.06); */
             pointer-events: none;
         }
 
         .profile-img {
             width: 100%;
             height: 100%;
-            border-radius: 30px;
+            border-radius: 50px;
             object-fit: cover;
-            box-shadow: inset 0 0 0 1px rgba(236, 13, 13, 0.05);
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .profile-frame {
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            transition: transform 3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
                 box-shadow 0.5s ease;
         }
 
         .profile-frame:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(79, 70, 229, 0.50);
         }
 
         .button {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #1a1a2e;
+            color: #ffffff;
             border: none;
             padding: 14px 28px;
             border-radius: 8px;
@@ -299,30 +305,31 @@
 
         .button.outline {
             background-color: transparent;
-            color: #ffffff;
-            border: 2px solid #333;
+            color: #1a1a2e;
+            border: 2px solid #d5d0e0;
             position: relative;
             overflow: hidden;
             background: radial-gradient(200px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                    rgba(255, 255, 255, 0.05),
+                    rgba(79, 70, 229, 0.04),
                     transparent 100%);
             transition: all 0.3s ease;
         }
 
         .button.outline:hover {
             transform: translateY(-3px);
-            border-color: transparent;
-            background-image: linear-gradient(#050505, #050505),
-                linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
+            border-color: #4f46e5;
+            background-image: linear-gradient(#f5f5f7, #f5f5f7),
+                linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
             background-origin: border-box;
             background-clip: padding-box, border-box;
-            box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.15);
+            color: #1a1a2e;
         }
 
         .button.arm-guide-btn {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border: 2px solid rgba(96, 165, 250, 0.35);
-            color: #fff;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            border: 2px solid rgba(79, 70, 229, 0.25);
+            color: #1a1a2e;
             font-weight: 700;
             position: relative;
             overflow: hidden;
@@ -331,24 +338,24 @@
 
         .button.arm-guide-btn i {
             margin-right: 8px;
-            color: #60a5fa;
+            color: #4f46e5;
         }
 
         .button.arm-guide-btn:hover {
             transform: translateY(-3px) scale(1.02);
-            border-color: #60a5fa;
-            box-shadow: 0 0 30px rgba(96, 165, 250, 0.25),
-                0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: #4f46e5;
+            box-shadow: 0 0 30px rgba(79, 70, 229, 0.15),
+                0 8px 25px rgba(0, 0, 0, 0.06);
             background: radial-gradient(200px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                    rgba(96, 165, 250, 0.15),
-                    #16213e 80%);
+                    rgba(79, 70, 229, 0.08),
+                    #eef2ff 80%);
         }
 
         .button.arm-guide-btn .badge-pulse {
             display: inline-block;
             width: 8px;
             height: 8px;
-            background: #60a5fa;
+            background: #4f46e5;
             border-radius: 50%;
             margin-left: 8px;
             animation: pulse-dot 1.5s ease-in-out infinite;
@@ -360,17 +367,17 @@
             100% {
                 opacity: 1;
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.6);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
             }
 
             50% {
                 opacity: 0.6;
                 transform: scale(0.85);
-                box-shadow: 0 0 0 6px rgba(96, 165, 250, 0);
+                box-shadow: 0 0 0 6px rgba(79, 70, 229, 0);
             }
         }
 
-        /* -------- LINK MODAL -------- */
+        /* -------- LINK MODAL (light) -------- */
         .links-modal-overlay {
             display: none;
             position: fixed;
@@ -378,8 +385,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -391,13 +398,13 @@
         }
 
         .links-modal {
-            background: #0f0f0f;
+            background: #ffffff;
             border-radius: 32px;
             padding: 40px 50px;
             max-width: 500px;
             width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
             position: relative;
             text-align: center;
         }
@@ -405,12 +412,12 @@
         .links-modal h2 {
             font-size: 28px;
             font-weight: 700;
-            color: #ffffff;
+            color: #1a1a2e;
             margin-bottom: 10px;
         }
 
         .links-modal p {
-            color: #9ca3af;
+            color: #4b5563;
             font-size: 14px;
             margin-bottom: 30px;
         }
@@ -421,14 +428,14 @@
             right: 20px;
             background: none;
             border: none;
-            color: #6b7280;
+            color: #9ca3af;
             font-size: 28px;
             cursor: pointer;
             transition: color 0.3s;
         }
 
         .links-modal .close-modal:hover {
-            color: #ffffff;
+            color: #1a1a2e;
         }
 
         .links-grid {
@@ -443,10 +450,10 @@
             justify-content: center;
             gap: 12px;
             padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.06);
             border-radius: 16px;
-            color: #e0e0e0;
+            color: #1a1a2e;
             text-decoration: none;
             font-size: 16px;
             font-weight: 600;
@@ -454,20 +461,20 @@
         }
 
         .links-grid .modal-link-btn i {
-            color: #60a5fa;
+            color: #4f46e5;
             font-size: 20px;
         }
 
         .links-grid .modal-link-btn:hover {
-            background: rgba(96, 165, 250, 0.12);
-            border-color: rgba(96, 165, 250, 0.3);
+            background: rgba(79, 70, 229, 0.06);
+            border-color: rgba(79, 70, 229, 0.2);
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
         }
 
         .links-grid .modal-link-btn .badge-new {
-            background: #60a5fa;
-            color: #050505;
+            background: #4f46e5;
+            color: #ffffff;
             font-size: 9px;
             font-weight: 800;
             padding: 2px 8px;
@@ -476,26 +483,24 @@
             text-transform: uppercase;
         }
 
-        
-
-        /* ------- CARD STYLES (unchanged) ------- */
+        /* ------- CARD STYLES (light) ------- */
         .card,
         .skill-category,
         .contact-card {
-            background-color: #0f0f0f;
+            background-color: #ffffff;
             border-radius: 24px;
             padding: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(0, 0, 0, 0.05);
             background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                    rgba(255, 255, 255, 0.06),
-                    transparent 40%) #0f0f0f;
+                    rgba(79, 70, 229, 0.04),
+                    transparent 40%) #ffffff;
             transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             display: flex;
             flex-direction: column;
             position: relative;
             height: 100%;
             overflow: hidden;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
             text-decoration: none;
             color: inherit;
             cursor: pointer;
@@ -513,7 +518,7 @@
             border-radius: 24px;
             padding: 2px;
             background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                    rgba(255, 255, 255, 0.4),
+                    rgba(79, 70, 229, 0.25),
                     transparent 40%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box,
                 linear-gradient(#fff 0 0);
@@ -535,12 +540,12 @@
         .contact-card:hover {
             transform: translateY(-8px);
             border-color: transparent;
-            background-image: linear-gradient(#0f0f0f, #0f0f0f),
-                linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
+            background-image: linear-gradient(#ffffff, #ffffff),
+                linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
             background-origin: border-box;
             background-clip: padding-box, border-box;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8),
-                0 0 20px rgba(96, 165, 250, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.10),
+                0 0 20px rgba(79, 70, 229, 0.06);
         }
 
         .card-container {
@@ -554,14 +559,14 @@
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #ffffff;
+            color: #1a1a2e;
             padding-right: 30px;
             line-height: 1.3;
         }
 
         .card-subtitle {
             font-size: 13px;
-            color: #60a5fa;
+            color: #4f46e5;
             margin-bottom: 15px;
             font-weight: 500;
             text-transform: uppercase;
@@ -572,7 +577,7 @@
             font-size: 15px;
             line-height: 1.7;
             margin-bottom: 25px;
-            color: #a3a3a3;
+            color: #4b5563;
             flex-grow: 1;
         }
 
@@ -584,19 +589,19 @@
         }
 
         .tag {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: #d1d5db;
+            background-color: rgba(0, 0, 0, 0.04);
+            color: #374151;
             font-size: 12px;
             padding: 6px 12px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.04);
             transition: background-color 0.2s;
         }
 
         .card:hover .tag {
-            background-color: rgba(96, 165, 250, 0.1);
-            border-color: rgba(96, 165, 250, 0.2);
-            color: #ffffff;
+            background-color: rgba(79, 70, 229, 0.08);
+            border-color: rgba(79, 70, 229, 0.15);
+            color: #1a1a2e;
         }
 
         .timeline {
@@ -612,7 +617,7 @@
             top: 5px;
             bottom: 0;
             width: 2px;
-            background-color: #1f2937;
+            background-color: #d5d0e0;
             border-radius: 1px;
         }
 
@@ -629,16 +634,16 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background-color: #050505;
-            border: 2px solid #374151;
+            background-color: #f5f5f7;
+            border: 2px solid #c5c0d0;
             z-index: 2;
             transition: all 0.3s ease;
         }
 
         .timeline-item:hover::before {
-            background-color: #60a5fa;
-            border-color: #60a5fa;
-            box-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
         }
 
         .timeline-card {
@@ -647,7 +652,7 @@
 
         .timeline-date {
             font-size: 13px;
-            color: #60a5fa;
+            color: #4f46e5;
             margin-bottom: 8px;
             font-weight: 600;
             text-transform: uppercase;
@@ -658,12 +663,12 @@
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 5px;
-            color: #ffffff;
+            color: #1a1a2e;
         }
 
         .timeline-subtitle {
             font-size: 15px;
-            color: #d1d5db;
+            color: #4b5563;
             margin-bottom: 12px;
         }
 
@@ -678,22 +683,22 @@
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 20px;
-            color: #ffffff;
+            color: #1a1a2e;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
         .skill-item {
             margin-bottom: 12px;
             font-size: 15px;
-            color: #a3a3a3;
+            color: #4b5563;
             display: flex;
             align-items: center;
         }
 
         .skill-item::before {
             content: '•';
-            color: #2802b2;
+            color: #4f46e5;
             margin-right: 10px;
         }
 
@@ -701,20 +706,20 @@
             0% {
                 transform: scale(1);
                 opacity: 0.7;
-                color: #6b7280;
+                color: #9ca3af;
             }
 
             50% {
                 transform: scale(1.2);
                 opacity: 1;
-                color: #60a5fa;
-                text-shadow: 0 0 8px rgba(96, 165, 250, 0.8);
+                color: #4f46e5;
+                text-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
             }
 
             100% {
                 transform: scale(1);
                 opacity: 0.7;
-                color: #6b7280;
+                color: #9ca3af;
             }
         }
 
@@ -722,7 +727,7 @@
             position: absolute;
             top: 25px;
             right: 25px;
-            color: #4b5563;
+            color: #9ca3af;
             font-size: 18px;
             transition: color 0.3s, transform 0.3s;
             padding: 5px;
@@ -730,7 +735,7 @@
         }
 
         .card:hover .project-link-icon {
-            color: #ffffff;
+            color: #1a1a2e;
             transform: scale(1.1);
             animation: none;
         }
@@ -753,25 +758,25 @@
         .contact-card-title {
             font-size: 14px;
             font-weight: 500;
-            color: #9ca3af;
+            color: #6b7280;
             margin-bottom: 15px;
         }
 
         .contact-icon-box {
             font-size: 32px;
-            color: #ffffff;
-            transition: transform 0.3s, color 0.3s;
+            color: #1a1a2e;
+            transition: transform 0.3s, color 0.3s, background-color 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 60px;
             height: 60px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(0, 0, 0, 0.04);
             border-radius: 50%;
         }
 
         .contact-card:hover .contact-icon-box {
-            background-color: #60a5fa;
+            background-color: #4f46e5;
             color: #ffffff;
             transform: scale(1.1);
         }
@@ -781,12 +786,12 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-bottom: 40px;
-            border-bottom: 1px solid #1a1a1a;
+            border-bottom: 1px solid #e5e0ed;
             padding-bottom: 20px;
         }
 
         .new-badge {
-            background-color: #2563eb;
+            background-color: #4f46e5;
             color: #ffffff;
             font-size: 9px;
             padding: 2px 6px;
@@ -799,9 +804,9 @@
         .footer-info {
             margin-top: 100px;
             padding: 40px 0;
-            border-top: 1px solid #1a1a1a;
+            border-top: 1px solid #e5e0ed;
             font-size: 13px;
-            color: #525252;
+            color: #9ca3af;
             text-align: center;
         }
 
@@ -812,12 +817,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(3px);
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(2px);
             z-index: 998;
         }
 
-        /* -------- RESPONSIVE (unchanged) -------- */
+        /* -------- RESPONSIVE -------- */
         @media (max-width: 1024px) {
             .contact-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -837,7 +842,7 @@
 
             .sidebar.active {
                 transform: translateX(0);
-                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.08);
             }
 
             .overlay.active {
@@ -937,7 +942,7 @@
         }
 
         /* =========================================================
-               NEW: AxonInterlink Logo Styles (added)
+               AxonInterlink Logo Styles (light mode adjusted)
                ========================================================= */
         .logo-container {
             display: flex;
@@ -962,18 +967,17 @@
             letter-spacing: 0.02em;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            color: #ffffff;
+            color: #1a1a2e;
         }
 
         .logo-text .highlight {
-            background: linear-gradient(90deg, #7c3aed, #2563eb);
+            background: linear-gradient(90deg, #7c3aed, #4f46e5);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 600;
         }
 
-        /* Logo animation keyframes */
         @keyframes logoFlow {
             0% {
                 offset-distance: 0%;
@@ -1006,12 +1010,12 @@
             0%,
             100% {
                 transform: scale(1);
-                filter: brightness(1) drop-shadow(0 0 2px rgba(124, 58, 237, 0.3));
+                filter: brightness(1) drop-shadow(0 0 2px rgba(79, 70, 229, 0.2));
             }
 
             50% {
                 transform: scale(1.04);
-                filter: brightness(1.15) drop-shadow(0 0 8px rgba(6, 182, 212, 0.6));
+                filter: brightness(1.08) drop-shadow(0 0 8px rgba(79, 70, 229, 0.25));
             }
         }
 
@@ -1019,7 +1023,7 @@
 
             0%,
             100% {
-                stop-color: #06b6d4;
+                stop-color: #4f46e5;
             }
 
             50% {
@@ -1027,7 +1031,6 @@
             }
         }
 
-        /* Mounted state – enable animations */
         .logo-container.logo-mounted .logo-pulse-node {
             animation: logoPulse 2.8s ease-in-out infinite;
             transform-origin: center;
@@ -1046,16 +1049,14 @@
             animation: logoGradient 4s ease-in-out infinite;
         }
 
-        /* Hide dots until mounted */
         .logo-container:not(.logo-mounted) .logo-flow-dot {
             display: none;
         }
 
         .logo-container:not(.logo-mounted) .logo-grad-stop {
-            stop-color: #7c3aed;
+            stop-color: #4f46e5;
         }
 
-        /* Mobile logo sizing */
         @media (max-width: 768px) {
             .logo-svg {
                 width: 38px;
@@ -1077,7 +1078,7 @@
 </head>
 
 <body>
-    <!-- ===== SIDEBAR & MAIN CONTENT (unchanged except Links nav item) ===== -->
+    <!-- ===== SIDEBAR & MAIN CONTENT ===== -->
     <div class="container">
         <!-- Mobile Menu Toggle -->
         <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -1091,7 +1092,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="profile-section">
                 <h1 class="profile-name">Ansh Srivastav</h1>
-                <p class="profile-title">Electronics & Kernel Engineer</p>
+                <p class="profile-title">Electronics and VLSI Engineer</p>
             </div>
 
             <nav class="nav-section">
@@ -1139,10 +1140,10 @@
                 <section id="home" class="section home-section">
                     <div class="about-content">
                         <div class="about-text">
-                            <h1 style="font-size:xxx-large;" class="about-title">Hi, I'm Ansh</h1>
-                            <h2 style="font-size: x-large;" class="about-subtitle">
+                            <h1 style="font-size:xxx-large;" class="about-title">Hi, I'm Ansh Srivastav</h1>
+                            <!-- <h2 style="font-size: x-large;" class="about-subtitle">
                                 Electronics Engineering, Kernel & Hardware Enthusiast
-                            </h2>
+                            </h2> -->
                             <p style="font-size:larger;" class="about-paragraph">
                                 I'm currently pursuing B.Tech in Electronics and Communication Engineering
                                 at Dr. B. R. Ambedkar National Institute of Technology, Jalandhar.
@@ -1154,10 +1155,10 @@
                                 efficient processor design and FPGA implementation.
                             </p>
                             <div class="about-actions">
-                                <a href="#projects" class="button outline">View Projects</a>
-                                <a href="#contact" class="button outline">Contact Me</a>
+                                <a href="#projects" class="button outline" style="border-radius: 25px;">View Projects</a>
+                                <!-- <a href="#contact" class="button outline">Contact Me</a> -->
                                 <a href="https://drive.google.com/file/d/1M0uEYBEwJ-ihCgdiylxW21HervqpqvL7/view?usp=sharing"
-                                    target="_blank" class="button outline">
+                                    target="_blank" class="button outline" style="border-radius: 25px;">
                                     Résumé
                                 </a>
                             </div>
@@ -1169,9 +1170,6 @@
                         </div>
                     </div>
                 </section>
-
-                <!-- Education, Experience, Projects, Skills, Contact sections (unchanged) -->
-                <!-- ... (I'll keep them identical to your original for brevity) ... -->
 
                 <!-- Education -->
                 <section id="education" class="section">
@@ -1188,7 +1186,7 @@
                                 <div class="timeline-title">BTech - Electronics and Communication Engineering</div>
                                 <div class="timeline-subtitle">Dr. B R Ambedkar National Institute of Technology –
                                     Jalandhar, Punjab</div>
-                                <div class="card-description">CGPA --> 8.18</div>
+                                <div class="card-description">CGPA --> 8.33</div>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -1209,7 +1207,7 @@
                         </div>
                     </div>
                     <h3
-                        style="margin-top: 50px; margin-bottom: 25px; font-size: 20px; color: #ffffff; font-weight: 600;">
+                        style="margin-top: 50px; margin-bottom: 25px; font-size: 20px; color: #1a1a2e; font-weight: 600;">
                         Relevant Coursework</h3>
                     <div class="card-container">
                         <div class="card">
@@ -1410,40 +1408,6 @@
 
                 <!-- Contact -->
                 <section id="contact" class="section">
-                    <!-- <div class="header-info">
-                        <div>
-                            <h2 class="section-title">Get In Touch</h2>
-                            <p class="section-subtitle">Connect for collaborations</p>
-                        </div>
-                    </div> -->
-                    <!-- <div class="contact-grid">
-                        <a href="https://github.com/Ansh-Srivastav2023" target="_blank" class="contact-card"
-                            aria-label="GitHub Profile">
-                            <div class="contact-card-title">GITHUB</div>
-                            <div class="contact-icon-box">
-                                <i class="fab fa-github"></i>
-                            </div>
-                        </a>
-                        <a href="https://linkedin.com/in/ansh-srivastav-a34b8a2a0" target="_blank" class="contact-card"
-                            aria-label="Linkedin Profile">
-                            <div class="contact-card-title">LINKEDIN</div>
-                            <div class="contact-icon-box">
-                                <i class="fab fa-linkedin"></i>
-                            </div>
-                        </a>
-                        <a href="mailto:ansh.srivastav91709@gmail.com" class="contact-card" aria-label="Email Me">
-                            <div class="contact-card-title">EMAIL</div>
-                            <div class="contact-icon-box">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                        </a>
-                        <a href="tel:+919170900136" class="contact-card" aria-label="Call Me">
-                            <div class="contact-card-title">PHONE</div>
-                            <div class="contact-icon-box">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                        </a>
-                    </div> -->
                     <div class="footer-info">
                         <p>© 2026 Ansh Srivastav. Built with precision.</p>
                     </div>
@@ -1452,14 +1416,13 @@
         </main>
     </div>
 
-    <!-- ===== LINK MODAL (with logo integrated) ===== -->
+    <!-- ===== LINK MODAL ===== -->
     <div class="links-modal-overlay" id="linksModalOverlay">
         <div class="links-modal">
             <button class="close-modal" id="closeLinksModal">&times;</button>
-            <h2><i class="fas fa-link" style="color: #60a5fa; margin-right: 10px;"></i>Useful Links</h2>
+            <h2><i class="fas fa-link" style="color: #4f46e5; margin-right: 10px;"></i>Useful Links</h2>
             <p>Quick access to external resources and references</p>
             <div class="links-grid">
-                <!-- ─── First link – now with the AxonInterlink logo ─── -->
                 <a href="https://ansh-srivastav2023.github.io/axon-interlink/" target="_blank"
                     class="modal-link-btn logo-link">
                     <div id="axon-logo" class="logo-container">
@@ -1470,15 +1433,12 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- Other links remain unchanged -->
                 <a href="instructions.html" target="_blank" class="modal-link-btn">
                     <i class="fas fa-microchip"></i> ARM A64 Instruction Reference
                 </a>
                 <a href="registers.html" target="_blank" class="modal-link-btn">
                     <i class="fas fa-microchip"></i> Armv8 & Armv9 Registers
                 </a>
-                <!-- Future links can be added here -->
             </div>
         </div>
     </div>
@@ -1525,7 +1485,7 @@
                 }
             });
 
-            // -------- MOBILE MENU (unchanged) --------
+            // -------- MOBILE MENU --------
             function closeMobileMenu() {
                 if (window.innerWidth <= 768) {
                     sidebar.classList.remove('active');
@@ -1552,7 +1512,7 @@
                 link.addEventListener('click', closeMobileMenu);
             });
 
-            // -------- SCROLL SPY (unchanged) --------
+            // -------- SCROLL SPY --------
             window.addEventListener('scroll', () => {
                 let current = '';
                 sections.forEach(section => {
@@ -1580,7 +1540,7 @@
                 }
             });
 
-            // -------- SPOTLIGHT EFFECT (unchanged) --------
+            // -------- SPOTLIGHT EFFECT --------
             const cards = document.querySelectorAll('.card, .skill-category, .contact-card, .button.outline, .button.arm-guide-btn, .modal-link-btn');
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -1593,7 +1553,7 @@
             });
 
             // =========================================================
-            // NEW: AxonInterlink Logo – SVG builder & mounting
+            // AxonInterlink Logo – SVG builder & mounting
             // =========================================================
             (function () {
                 const container = document.getElementById('axon-logo');
@@ -1655,7 +1615,7 @@
                                     <stop offset="25%" stop-color="#7C3AED" />
                                     <stop offset="50%" stop-color="#4F46E5" />
                                     <stop offset="75%" stop-color="#2563EB" />
-                                    <stop offset="100%" stop-color="#06B6D4" class="logo-grad-stop" />
+                                    <stop offset="100%" stop-color="#4F46E5" class="logo-grad-stop" />
                                 </linearGradient>
 
                                 <filter id="logoGlow-${uid}" x="-40%" y="-40%" width="180%" height="180%">
@@ -1667,14 +1627,14 @@
                                 </filter>
 
                                 <radialGradient id="pulse-${uid}" cx="50%" cy="50%" r="50%">
-                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
-                                    <stop offset="30%" stop-color="#2563EB" stop-opacity="0.7" />
+                                    <stop offset="0%" stop-color="#1a1a2e" stop-opacity="1" />
+                                    <stop offset="30%" stop-color="#4F46E5" stop-opacity="0.6" />
                                     <stop offset="100%" stop-color="#6D28D9" stop-opacity="0" />
                                 </radialGradient>
                             </defs>
 
                             <!-- Base paths -->
-                            <g stroke="url(#logoGrad-${uid})" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#logoGlow-${uid})" opacity="0.6">
+                            <g stroke="url(#logoGrad-${uid})" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#logoGlow-${uid})" opacity="0.5">
                                 <path d="M160 130 C235 130 235 190 310 190" />
                                 <path d="M160 130 C235 130 235 315 310 315" />
                                 <path d="M310 190 C360 190 360 250 410 250" />
@@ -1700,7 +1660,6 @@
                     target.innerHTML = buildSVG();
                 }
 
-                // Mount animations after paint
                 requestAnimationFrame(() => {
                     container.classList.add('logo-mounted');
                 });
